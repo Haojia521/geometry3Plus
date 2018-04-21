@@ -149,11 +149,13 @@
     <ClInclude Include="..\include\math\vector2d.h" />
     <ClInclude Include="..\include\math\vector2f.h" />
     <ClInclude Include="..\include\math\vector2i.h" />
+    <ClInclude Include="..\include\math\vector3d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\math\vector2d.cpp" />
     <ClCompile Include="..\src\math\vector2f.cpp" />
     <ClCompile Include="..\src\math\vector2i.cpp" />
+    <ClCompile Include="..\src\math\vector3d.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,7 +22,7 @@ namespace g3
         static const self_type minValue;
 
         // static functions
-        static inline self_type fromAngleRed(value_type angle) { return self_type(cos(angle), sin(angle)); }
+        static inline self_type fromAngleRed(value_type angle) { return self_type(std::cos(angle), std::sin(angle)); }
         static inline self_type fromAngleDeg(value_type angle)
         { angle *= mathUtil::deg2rad; return fromAngleRed(angle); }
 
@@ -54,7 +54,7 @@ namespace g3
         self_type normalized() const;
 
         inline bool isNormalized() const
-        { return abs((_x * _x + _y * _y) - 1.0) < mathUtil::zeroTolerance; }
+        { return std::abs((_x * _x + _y * _y) - 1.0) < mathUtil::zeroTolerance; }
 
         // TODO: realize fucntion 'vector2d::round()'
         inline void round(int decimals)
@@ -101,7 +101,7 @@ namespace g3
         inline bool equals(const self_type &v) const
         { return (*this) == v; }
         inline bool epsilonEqual(const self_type &v, value_type eps) const
-        { return abs(_x - v._x) <= eps && abs(_y - v._y) <= eps; }
+        { return std::abs(_x - v._x) <= eps && std::abs(_y - v._y) <= eps; }
 
         // operator functions
         inline value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
