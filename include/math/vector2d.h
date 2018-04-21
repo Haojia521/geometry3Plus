@@ -42,9 +42,6 @@ namespace g3
         Vector2d(const self_type &copy) { _x = copy._x; _y = copy._y; }
 
         // functions
-        inline value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
-        inline value_type  operator [] (int i) const { if (i == 0) return _x; else return _y; }
-
         inline value_type& x() { return _x; }
         inline value_type& y() { return _y; }
         inline value_type  x() const { return _x; }
@@ -107,6 +104,9 @@ namespace g3
         { return abs(_x - v._x) <= eps && abs(_y - v._y) <= eps; }
 
         // operator functions
+        inline value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
+        inline value_type  operator [] (int i) const { if (i == 0) return _x; else return _y; }
+
         inline operator Vector2f() const 
         { return Vector2f(static_cast<Vector2f::value_type>(_x), static_cast<Vector2f::value_type>(_y)); }
 
