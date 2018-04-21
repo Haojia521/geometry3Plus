@@ -57,9 +57,9 @@ namespace g3
         self_type normalized() const;
 
         inline bool isNormalized() const
-        { return abs((_x * _x + _y * _y) - 1.0) < mathUtil::zeroTolerance; }
+        { return abs((_x * _x + _y * _y) - 1.0) < mathUtil::zeroTolerancef; }
 
-        // TODO: realize fucntion 'vector2d::round()'
+        // TODO: realize fucntion 'vector2f::round()'
         inline void round(int decimals)
         { }
 
