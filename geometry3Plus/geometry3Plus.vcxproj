@@ -147,9 +147,11 @@
   <ItemGroup>
     <ClInclude Include="..\include\math\mathUtil.h" />
     <ClInclude Include="..\include\math\vector2d.h" />
+    <ClInclude Include="..\include\math\vector2f.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\math\vector2d.cpp" />
+    <ClCompile Include="..\src\math\vector2f.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,17 +1,17 @@
-#ifndef G3_MATH_VECTOR_2_D
-#define G3_MATH_VECTOR_2_D
+#ifndef G3_MATH_VECTOR_2_F
+#define G3_MATH_VECTOR_2_F
 
 #include <math.h>
 
-#include <math/vector2f.h>
+#include <math/mathUtil.h>
 
 namespace g3
 {
-    class Vector2d
+    class Vector2f
     {
     public:
-        typedef double   value_type;
-        typedef Vector2d self_type;
+        typedef float    value_type;
+        typedef Vector2f self_type;
 
         // static values
         static const self_type zero;
@@ -35,11 +35,11 @@ namespace g3
         { value_type s = 1 - t; return self_type(s * a.x() + t * b.x(), s * a.y() + t * b.y()); }
 
         // constructors
-        Vector2d() { _x = _y = 0.0; }
-        Vector2d(value_type x, value_type y) { _x = x; _y = y; }
-        Vector2d(value_type values[]) { _x = values[0]; _y = values[1]; }
+        Vector2f() { _x = _y = 0.0; }
+        Vector2f(value_type x, value_type y) { _x = x; _y = y; }
+        Vector2f(value_type values[]) { _x = values[0]; _y = values[1]; }
         // copy-constructors
-        Vector2d(const self_type &copy) { _x = copy._x; _y = copy._y; }
+        Vector2f(const self_type &copy) { _x = copy._x; _y = copy._y; }
 
         // functions
         inline value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
@@ -76,13 +76,13 @@ namespace g3
 
         inline value_type angleD(const self_type &v) const
         {
-            value_type fDot = mathUtil::clamp(dot(v), -1.0, 1.0);
+            value_type fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return acos(fDot) * mathUtil::rad2deg;
         }
 
         inline value_type angleR(const self_type &v) const
         {
-            value_type fDot = mathUtil::clamp(dot(v), -1.0, 1.0);
+            value_type fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return acos(fDot);
         }
 
@@ -107,35 +107,32 @@ namespace g3
         { return abs(_x - v._x) <= eps && abs(_y - v._y) <= eps; }
 
         // operator functions
-        inline operator Vector2f() const 
-        { return Vector2f(static_cast<Vector2f::value_type>(_x), static_cast<Vector2f::value_type>(_y)); }
-
         inline self_type operator - () const { return self_type(-_x, -_y); }
 
         inline self_type operator - (const self_type &v) const
         { return self_type(_x - v._x, _y - v._y); }
-        inline self_type operator - (value_type d) const
-        { return self_type(_x - d, _y - d); }
+        inline self_type operator - (value_type f) const
+        { return self_type(_x - f, _y - f); }
 
         inline self_type operator + (const self_type &v) const
         { return self_type(_x + v._x, _y + v._y); }
-        inline self_type operator + (value_type d) const
-        { return self_type(_x + d, _y + d); }
-        friend self_type operator + (value_type d, const self_type &v);
+        inline self_type operator + (value_type f) const
+        { return self_type(_x + f, _y + f); }
+        friend self_type operator + (value_type f, const self_type &v);
 
         inline self_type operator * (const self_type &v) const
         { return self_type(_x * v._x, _y * v._y); }
 
-        inline self_type operator * (value_type d) const
-        { return self_type(_x * d, _y * d); }
-        friend self_type operator * (value_type d, const self_type &v);
+        inline self_type operator * (value_type f) const
+        { return self_type(_x * f, _y * f); }
+        friend self_type operator * (value_type f, const self_type &v);
 
         inline self_type operator / (const self_type &v) const
         { return self_type(_x / v._x, _y / v._y); }
 
-        inline self_type operator / (value_type d) const
-        { return self_type(_x / d, _y / d); }
-        friend self_type operator / (value_type d, const self_type &v);
+        inline self_type operator / (value_type f) const
+        { return self_type(_x / f, _y / f); }
+        friend self_type operator / (value_type f, const self_type &v);
 
         inline bool operator == (const self_type &v) const
         { return _x == v._x && _y == v._y; }
@@ -146,14 +143,14 @@ namespace g3
         value_type _x, _y;
     };
 
-    inline Vector2d operator + (Vector2d::value_type d, const Vector2d &v)
-    { return v + d; }
+    inline Vector2f operator + (Vector2f::value_type f, const Vector2f &v)
+    { return v + f; }
 
-    inline Vector2d operator * (Vector2d::value_type d, const Vector2d &v)
-    { return v * d; }
+    inline Vector2f operator * (Vector2f::value_type f, const Vector2f &v)
+    { return v * f; }
 
-    inline Vector2d operator / (Vector2d::value_type d, const Vector2d &v)
-    { return Vector2d(d / v.x(), d / v.y()); }
+    inline Vector2f operator / (Vector2f::value_type f, const Vector2f &v)
+    { return Vector2f(f / v.x(), f / v.y()); }
 }
 
 #endif

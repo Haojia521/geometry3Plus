@@ -25,9 +25,15 @@
     <ClInclude Include="..\include\math\mathUtil.h">
       <Filter>Include\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\math\vector2f.h">
+      <Filter>Include\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\math\vector2d.cpp">
+      <Filter>src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\vector2f.cpp">
       <Filter>src\math</Filter>
     </ClCompile>
   </ItemGroup>
