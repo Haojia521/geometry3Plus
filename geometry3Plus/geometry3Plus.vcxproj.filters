@@ -39,5 +39,8 @@
     <ClCompile Include="..\src\math\vector2f.cpp">
       <Filter>src\math</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\math\vector2i.cpp">
+      <Filter>src\math</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

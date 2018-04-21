@@ -6,10 +6,10 @@ namespace g3
 {
     // class vector2f
 
-    const Vector2f Vector2f::zero = Vector2f();
-    const Vector2f Vector2f::one = Vector2f(1.f, 1.f);
-    const Vector2f Vector2f::axisX = Vector2f(1.f, 0.f);
-    const Vector2f Vector2f::axisY = Vector2f(0.f, 1.f);
+    const Vector2f Vector2f::zero     = Vector2f();
+    const Vector2f Vector2f::one      = Vector2f(1.f, 1.f);
+    const Vector2f Vector2f::axisX    = Vector2f(1.f, 0.f);
+    const Vector2f Vector2f::axisY    = Vector2f(0.f, 1.f);
     const Vector2f Vector2f::maxValue = Vector2f(std::numeric_limits<Vector2f::value_type>::max(),
                                                  std::numeric_limits<Vector2f::value_type>::max());
     const Vector2f Vector2f::minValue = Vector2f(std::numeric_limits<Vector2f::value_type>::min(),
