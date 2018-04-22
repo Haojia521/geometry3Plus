@@ -1,5 +1,5 @@
-#ifndef G3_MATH_VECTOR_4_D
-#define G3_MATH_VECTOR_4_D
+#ifndef G3_MATH_VECTOR_4_F
+#define G3_MATH_VECTOR_4_F
 
 #include <cmath>
 
@@ -7,32 +7,24 @@
 
 namespace g3
 {
-    class Vector4d
+    class Vector4f
     {
     public:
-        typedef double   value_type;
-        typedef Vector4d self_type;
+        typedef float    value_type;
+        typedef Vector4f self_type;
 
         // static values
         static const self_type zero;
         static const self_type one;
 
-        // static functions
-        static inline value_type dot(const self_type &v1, const self_type &v2)
-        { return v1.dot(v2); }
-
-        static inline value_type angleD(const self_type &v1, const self_type &v2)
-        { return v1.angleD(v2); }
-        static inline value_type angleR(const self_type &v1, const self_type &v2)
-        { return v1.angleR(v2); }
-
         // constructors
-        Vector4d() { _x = _y = _z = _w = 0; }
-        Vector4d(value_type d) { _x = _y = _z = _w = d; }
-        Vector4d(value_type x, value_type y, value_type z, value_type w) { _x = x; _y = y; _z = z; _w = w; }
-        Vector4d(value_type vals[]) { _x = vals[0]; _y = vals[1]; _z = vals[2]; _w = vals[3]; }
+        Vector4f() { _x = _y = _z = _w = 0; }
+        Vector4f(value_type d) { _x = _y = _z = _w = d; }
+        Vector4f(value_type x, value_type y, value_type z, value_type w) { _x = x; _y = y; _z = z; _w = w; }
+        Vector4f(value_type vals[]) { _x = vals[0]; _y = vals[1]; _z = vals[2]; _w = vals[3]; }
+
         // copy-constructors
-        Vector4d(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; _w = copy._w; }
+        Vector4f(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; _w = copy._w; }
 
         // functions
         inline value_type& x() { return _x; }
@@ -48,13 +40,13 @@ namespace g3
         inline value_type length() const { return std::sqrt(_x * _x + _y * _y + _z * _z + _w * _w); }
         inline value_type lengthL1() const { return std::abs(_x) + std::abs(_y) + std::abs(_z) + std::abs(_w); }
 
-        value_type normalize(value_type epsilon = mathUtil::epsilon);
+        value_type normalize(value_type epsilon = mathUtil::epsilonf);
         self_type normalized() const;
 
         inline bool isNormalized() const
-        { return std::abs((_x * _x + _y * _y + _z * _z + _w * _w) - 1.0) < mathUtil::zeroTolerance; }
+        { return std::abs((_x * _x + _y * _y + _z * _z + _w * _w) - 1.f) < mathUtil::zeroTolerancef; }
 
-        // TODO: realize function 'vector4d::round()'
+        // TODO: realize function 'vector4f::round()'
         inline void round(int decimals)
         { }
 
@@ -63,13 +55,13 @@ namespace g3
 
         inline value_type angleD(const self_type &v) const
         {
-            auto fDot = mathUtil::clamp(dot(v), -1.0, 1.0);
+            auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return std::acos(fDot) * mathUtil::rad2deg;
         }
 
         inline value_type angleR(const self_type &v) const
         {
-            auto fDot = mathUtil::clamp(dot(v), -1.0, 1.0);
+            auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return std::acos(fDot);
         }
 
@@ -135,14 +127,14 @@ namespace g3
         value_type _x, _y, _z, _w;
     };
 
-    inline Vector4d operator + (Vector4d::value_type d, const Vector4d &v)
+    inline Vector4f operator + (Vector4f::value_type d, const Vector4f &v)
     { return v + d; }
 
-    inline Vector4d operator * (Vector4d::value_type d, const Vector4d &v)
+    inline Vector4f operator * (Vector4f::value_type d, const Vector4f &v)
     { return v * d; }
 
-    inline Vector4d operator / (Vector4d::value_type d, const Vector4d &v)
-    { return Vector4d(d / v.x(), d / v.y(), d / v.z(), d / v.w()); }
+    inline Vector4f operator / (Vector4f::value_type d, const Vector4f &v)
+    { return Vector4f(d / v.x(), d / v.y(), d / v.z(), d / v.w()); }
 }
 
 #endif

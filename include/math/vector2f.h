@@ -79,13 +79,13 @@ namespace g3
         inline value_type angleD(const self_type &v) const
         {
             auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
-            return acos(fDot) * mathUtil::rad2degf;
+            return std::acos(fDot) * mathUtil::rad2degf;
         }
 
         inline value_type angleR(const self_type &v) const
         {
             auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
-            return acos(fDot);
+            return std::acos(fDot);
         }
 
         inline value_type distanceSquared(const self_type &v) const
