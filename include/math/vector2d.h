@@ -1,8 +1,6 @@
 #ifndef G3_MATH_VECTOR_2_D
 #define G3_MATH_VECTOR_2_D
 
-#include <math.h>
-
 #include <math/vector2f.h>
 
 namespace g3
@@ -43,8 +41,26 @@ namespace g3
         Vector2d() { _x = _y = 0.0; }
         Vector2d(value_type x, value_type y) { _x = x; _y = y; }
         Vector2d(value_type values[]) { _x = values[0]; _y = values[1]; }
+        
         // copy-constructors
         Vector2d(const self_type &copy) { _x = copy._x; _y = copy._y; }
+
+        // type conversion
+        Vector2d(const Vector2i &v2i)              // Vector2i -> Vector2d
+        {
+            _x = static_cast<value_type>(v2i.x());
+            _y = static_cast<value_type>(v2i.y());
+        }
+        Vector2d(const Vector2f &v2f)              // Vector2f -> Vector2d
+        {
+            _x = static_cast<value_type>(v2f.x());
+            _y = static_cast<value_type>(v2f.y());
+        }
+
+        inline operator Vector2f() const           // Vector2d -> Vector2f
+        {
+            return Vector2f(static_cast<Vector2f::value_type>(_x), static_cast<Vector2f::value_type>(_y));
+        }
 
         // functions
         inline value_type& x() { return _x; }
@@ -111,9 +127,6 @@ namespace g3
         // operator functions
         inline value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
         inline value_type  operator [] (int i) const { if (i == 0) return _x; else return _y; }
-
-        inline operator Vector2f() const 
-        { return Vector2f(static_cast<Vector2f::value_type>(_x), static_cast<Vector2f::value_type>(_y)); }
 
         inline self_type operator - () const { return self_type(-_x, -_y); }
 

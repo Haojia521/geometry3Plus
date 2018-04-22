@@ -29,8 +29,8 @@ namespace g3test
         v3f = vec3d;
         v3f = vec3i;
 
-        v3i = vec3d;
-        v3i = vec3f;
+        // v3i = vec3d;  // not support
+        // v3i = vec3f;  // not support
 
         std::vector<Vector3d> vec3dList;
         vec3dList.push_back(vec3f); vec3dList.push_back(vec3i);

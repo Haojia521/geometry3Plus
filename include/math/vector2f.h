@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include <math/mathUtil.h>
+#include <math/vector2i.h>
 
 namespace g3
 {
@@ -43,8 +44,16 @@ namespace g3
         Vector2f() { _x = _y = 0.f; }
         Vector2f(value_type x, value_type y) { _x = x; _y = y; }
         Vector2f(value_type values[]) { _x = values[0]; _y = values[1]; }
+        
         // copy-constructors
         Vector2f(const self_type &copy) { _x = copy._x; _y = copy._y; }
+
+        // type conversion
+        Vector2f(const Vector2i &v2i)              // Vector2i -> Vector2f
+        {
+            _x = static_cast<value_type>(v2i.x());
+            _y = static_cast<value_type>(v2i.y());
+        }
 
         // functions
         inline value_type& x() { return _x; }

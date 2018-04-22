@@ -52,6 +52,26 @@ namespace g3
         // copy-constructors
         Vector3d(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; }
 
+        // type conversion
+        Vector3d(const Vector3i &v3i)              // Vector3i -> Vector3d
+        {
+            _x = static_cast<value_type>(v3i.x());
+            _y = static_cast<value_type>(v3i.y());
+            _z = static_cast<value_type>(v3i.z());
+        }
+        Vector3d(const Vector3f &v3f)              // Vector3f -> Vector3d
+        {
+            _x = static_cast<value_type>(v3f.x());
+            _y = static_cast<value_type>(v3f.y());
+            _z = static_cast<value_type>(v3f.z());
+        }
+        inline operator Vector3f() const           // Vector3d -> Vector3f
+        {
+            return Vector3f(static_cast<Vector3f::value_type>(_x),
+                            static_cast<Vector3f::value_type>(_y),
+                            static_cast<Vector3f::value_type>(_z));
+        }
+
         // functions
         inline value_type& x() { return _x; }
         inline value_type& y() { return _y; }
@@ -140,13 +160,6 @@ namespace g3
         { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
         inline value_type  operator [] (int i) const 
         { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
-
-        inline operator Vector3f() const
-        {
-            return Vector3f(static_cast<Vector3f::value_type>(_x),
-                            static_cast<Vector3f::value_type>(_y),
-                            static_cast<Vector3f::value_type>(_z));
-        }
 
         inline self_type operator - () const { return self_type(-_x, -_y, -_z); }
 

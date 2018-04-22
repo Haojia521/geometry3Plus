@@ -1,9 +1,7 @@
 #ifndef G3_MATH_VECTOR_4_D
 #define G3_MATH_VECTOR_4_D
 
-#include <cmath>
-
-#include <math/mathUtil.h>
+#include <math/vector4f.h>
 
 namespace g3
 {
@@ -31,8 +29,26 @@ namespace g3
         Vector4d(value_type d) { _x = _y = _z = _w = d; }
         Vector4d(value_type x, value_type y, value_type z, value_type w) { _x = x; _y = y; _z = z; _w = w; }
         Vector4d(value_type vals[]) { _x = vals[0]; _y = vals[1]; _z = vals[2]; _w = vals[3]; }
+        
         // copy-constructors
         Vector4d(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; _w = copy._w; }
+
+        // type conversion
+        Vector4d(const Vector4f &v4f)
+        {
+            _x = static_cast<value_type>(v4f.x());
+            _y = static_cast<value_type>(v4f.y());
+            _z = static_cast<value_type>(v4f.z());
+            _w = static_cast<value_type>(v4f.w());
+        }
+
+        inline operator Vector4f() const
+        {
+            return Vector4f(static_cast<Vector4f::value_type>(_x), 
+                            static_cast<Vector4f::value_type>(_y), 
+                            static_cast<Vector4f::value_type>(_z), 
+                            static_cast<Vector4f::value_type>(_w));
+        }
 
         // functions
         inline value_type& x() { return _x; }

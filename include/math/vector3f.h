@@ -2,6 +2,7 @@
 #define G3_MATH_VECTOR_3_F
 
 #include <math/vector2f.h>
+#include <math/vector3i.h>
 
 namespace g3
 {
@@ -50,6 +51,14 @@ namespace g3
 
         // copy-constructors
         Vector3f(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; }
+
+        // type conversion
+        Vector3f(const Vector3i &v3i)             // Vector3i -> Vector3f
+        {
+            _x = static_cast<value_type>(v3i.x());
+            _y = static_cast<value_type>(v3i.y());
+            _z = static_cast<value_type>(v3i.z());
+        }
 
         // functions
         inline value_type& x() { return _x; }
