@@ -6,7 +6,7 @@
 
 namespace g3
 {
-    class Vector3f
+    class G3Export Vector3f
     {
     public:
         typedef float    value_type;

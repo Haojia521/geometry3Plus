@@ -46,6 +46,9 @@
     <ClInclude Include="..\include\math\vector4d.h">
       <Filter>Include\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\g3Export.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\math\vector2d.cpp">

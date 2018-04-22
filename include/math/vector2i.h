@@ -1,9 +1,11 @@
 #ifndef G3_MATH_VECTOR_2_I
 #define G3_MATH_VECTOR_2_I
 
+#include <g3Export.h>
+
 namespace g3
 {
-    class Vector2i
+    class G3Export Vector2i
     {
     public:
         typedef int      value_type;

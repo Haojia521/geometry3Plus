@@ -5,7 +5,7 @@
 
 namespace g3
 {
-    class Vector2d
+    class G3Export Vector2d
     {
     public:
         typedef double   value_type;

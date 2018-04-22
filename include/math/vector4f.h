@@ -3,11 +3,12 @@
 
 #include <cmath>
 
+#include <g3Export.h>
 #include <math/mathUtil.h>
 
 namespace g3
 {
-    class Vector4f
+    class G3Export Vector4f
     {
     public:
         typedef float    value_type;

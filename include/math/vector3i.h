@@ -5,7 +5,7 @@
 
 namespace g3
 {
-    class Vector3i
+    class G3Export Vector3i
     {
     public:
         typedef int      value_type;

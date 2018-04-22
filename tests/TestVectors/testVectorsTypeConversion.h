@@ -13,6 +13,26 @@ using namespace g3;
 
 namespace g3test
 {
+    void testVector2_typeConversion()
+    {
+        Vector2d vec2d(1, 2);
+        Vector2f vec2f(7, 8);
+        Vector2i vec2i(4, 5);
+
+        Vector2d v2d;
+        Vector2f v2f;
+        Vector2i v2i;
+
+        v2d = vec2f;
+        v2d = vec2i;
+
+        v2f = vec2d;
+        v2f = vec2i;
+
+        // v2i = vec2d;  // not support
+        // v2i = vec2f;  // not support
+    }
+
     void testVector3_typeConversion()
     {
         Vector3d vec3d(1, 2, 3);
@@ -44,7 +64,11 @@ namespace g3test
         Vector4d vec4d(1, 2, 3, 4);
         Vector4f vec4f(6, 7, 8, 9);
 
+        Vector4d v4d;
+        Vector4f v4f;
 
+        v4d = v4f;
+        v4f = v4d;
     }
 }
 

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "geometry3Plus", "geometry3Plus\geometry3Plus.vcxproj", "{8943D403-5A22-4BAA-9831-4EA7A146EA96}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestVectors", "tests\TestVectors\TestVectors.vcxproj", "{A7C49880-3900-4597-8460-A76CDC8BAECD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8943D403-5A22-4BAA-9831-4EA7A146EA96} = {8943D403-5A22-4BAA-9831-4EA7A146EA96}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1DA1CCBC-9360-4C64-A35C-886FE75CF48C}"
 EndProject

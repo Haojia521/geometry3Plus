@@ -8,7 +8,7 @@
 
 namespace g3
 {
-    class Vector2f
+    class G3Export Vector2f
     {
     public:
         typedef float    value_type;
