@@ -15,12 +15,12 @@ namespace g3
     const Vector2f Vector2f::minValue = Vector2f(std::numeric_limits<Vector2f::value_type>::min(),
                                                  std::numeric_limits<Vector2f::value_type>::min());
 
-    Vector2f::value_type Vector2f::normalize(value_type epsilon /* = mathUtil::epsilon */)
+    Vector2f::value_type Vector2f::normalize(value_type epsilon /* = mathUtil::epsilonf */)
     {
-        double len = length();
+        auto len = length();
         if (len > epsilon)
         {
-            double invLen = 1.0 / len;
+            auto invLen = 1.f / len;
             _x *= invLen;
             _y *= invLen;
         }
@@ -35,10 +35,10 @@ namespace g3
 
     Vector2f::self_type Vector2f::normalized() const
     {
-        double len = length();
+        auto len = length();
         if (len > mathUtil::epsilon)
         {
-            double invLen = 1.0 / len;
+            auto invLen = 1.f / len;
             return Vector2f(_x * invLen, _y * invLen);
         }
         else return Vector2f::zero;

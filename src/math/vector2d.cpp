@@ -17,7 +17,7 @@ namespace g3
 
     Vector2d::value_type Vector2d::normalize(value_type epsilon /* = mathUtil::epsilon */)
     {
-        double len = length();
+        auto len = length();
         if (len > epsilon)
         {
             double invLen = 1.0 / len;
@@ -35,7 +35,7 @@ namespace g3
 
     Vector2d::self_type Vector2d::normalized() const
     {
-        double len = length();
+        auto len = length();
         if (len > mathUtil::epsilon)
         {
             double invLen = 1.0 / len;
