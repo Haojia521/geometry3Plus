@@ -26,13 +26,18 @@ namespace g3
         static inline self_type fromAngleDeg(value_type angle)
         { angle *= mathUtil::deg2radf; return fromAngleRed(angle); }
 
+        static inline value_type dot(const self_type &v1, const self_type &v2)
+        { return v1.dot(v2); }
+        static inline value_type cross(const self_type &v1, const self_type &v2)
+        { return v1.cross(v2); }
+
         static inline value_type angleD(const self_type &v1, const self_type &v2)
         { return v1.angleD(v2); }
         static inline value_type angleR(const self_type &v1, const self_type &v2)
         { return v1.angleR(v2); }
 
         static inline self_type lerp(const self_type &a, const self_type &b, value_type t)
-        { value_type s = 1 - t; return self_type(s * a.x() + t * b.x(), s * a.y() + t * b.y()); }
+        { auto s = 1.f - t; return self_type(s * a.x() + t * b.x(), s * a.y() + t * b.y()); }
 
         // constructors
         Vector2f() { _x = _y = 0.0; }
@@ -48,7 +53,7 @@ namespace g3
         inline value_type  y() const { return _y; }
 
         inline value_type lengthSquared() const { return _x * _x + _y * _y; }
-        inline value_type length() const { return sqrt(_x * _x + _y * _y); }
+        inline value_type length() const { return std::sqrt(_x * _x + _y * _y); }
 
         value_type normalize(value_type epsilon = mathUtil::epsilonf);
         self_type normalized() const;
@@ -73,24 +78,24 @@ namespace g3
 
         inline value_type angleD(const self_type &v) const
         {
-            value_type fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
+            auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return acos(fDot) * mathUtil::rad2degf;
         }
 
         inline value_type angleR(const self_type &v) const
         {
-            value_type fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
+            auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return acos(fDot);
         }
 
         inline value_type distanceSquared(const self_type &v) const
         {
-            value_type dx = _x - v._x, dy = _y - v._y;
+            auto dx = _x - v._x, dy = _y - v._y;
             return dx * dx + dy * dy;
         }
 
         inline value_type distance(const self_type &v) const
-        { return sqrt(distanceSquared(v)); }
+        { return std::sqrt(distanceSquared(v)); }
 
         inline void set(const self_type &v) { _x = v._x; _y = v._y; }
         inline void set(value_type x, value_type y) { _x = x; _y = y; }

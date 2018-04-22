@@ -1,17 +1,16 @@
-#ifndef G3_MATH_VECTOR_3_D
-#define G3_MATH_VECTOR_3_D
+#ifndef G3_MATH_VECTOR_3_F
+#define G3_MATH_VECTOR_3_F
 
-#include <math/vector2d.h>
-#include <math/vector3f.h>
+#include <math/vector2f.h>
 
 namespace g3
 {
-    class Vector3d
+    class Vector3f
     {
     public:
-        typedef double   value_type;
-        typedef Vector3d self_type;
-        typedef Vector2d assoc_2d_type;
+        typedef float    value_type;
+        typedef Vector3f self_type;
+        typedef Vector2f assoc_2d_type;
 
         // static values
         static const self_type zero;
@@ -44,13 +43,13 @@ namespace g3
         }
 
         // constructors
-        Vector3d() { _x = _y = _z = 0; }
-        Vector3d(value_type d) { _x = _y = _z = d;}
-        Vector3d(value_type x, value_type y, value_type z) { _x = x; _y = y; _z = z; }
-        Vector3d(value_type vals[]) { _x = vals[0]; _y = vals[1]; _z = vals[2]; }
+        Vector3f() { _x = _y = _z = 0; }
+        Vector3f(value_type d) { _x = _y = _z = d; }
+        Vector3f(value_type x, value_type y, value_type z) { _x = x; _y = y; _z = z; }
+        Vector3f(value_type vals[]) { _x = vals[0]; _y = vals[1]; _z = vals[2]; }
 
         // copy-constructors
-        Vector3d(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; }
+        Vector3f(const self_type &copy) { _x = copy._x; _y = copy._y; _z = copy._z; }
 
         // functions
         inline value_type& x() { return _x; }
@@ -84,13 +83,13 @@ namespace g3
         inline self_type abs() const
         { return self_type(std::abs(_x), std::abs(_y), std::abs(_z)); }
 
-        value_type normalize(value_type epsilon = mathUtil::epsilon);
+        value_type normalize(value_type epsilon = mathUtil::epsilonf);
         self_type normalized() const;
 
         inline bool isNormalized() const
-        { return std::abs((_x * _x + _y * _y + _z * _z) - 1.0) < mathUtil::zeroTolerance; }
+        { return std::abs((_x * _x + _y * _y + _z * _z) - 1.f) < mathUtil::zeroTolerancef; }
 
-        // TODO: realize fucntion 'vector3d::round()'
+        // TODO: realize fucntion 'vector3f::round()'
         inline void round(int decimals)
         { }
 
@@ -105,13 +104,13 @@ namespace g3
 
         inline value_type angleD(const self_type &v) const
         {
-            auto fDot = mathUtil::clamp(dot(v), -1.0, 1.0);
+            auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return acos(fDot) * mathUtil::rad2deg;
         }
 
         inline value_type angleR(const self_type &v) const
         {
-            auto fDot = mathUtil::clamp(dot(v), -1.0, 1.0);
+            auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return acos(fDot);
         }
 
@@ -140,13 +139,6 @@ namespace g3
         { if (i == 0) return _x; else if (i == 2) return _y; else return _z; }
         inline value_type  operator [] (int i) const 
         { if (i == 0) return _x; else if (i == 2) return _y; else return _z; }
-
-        inline operator Vector3f() const
-        {
-            return Vector3f(static_cast<Vector3f::value_type>(_x),
-                            static_cast<Vector3f::value_type>(_y),
-                            static_cast<Vector3f::value_type>(_z));
-        }
 
         inline self_type operator - () const { return self_type(-_x, -_y, -_z); }
 
@@ -184,14 +176,14 @@ namespace g3
         value_type _x, _y, _z;
     };
 
-    inline Vector3d operator + (Vector3d::value_type d, const Vector3d &v)
+    inline Vector3f operator + (Vector3f::value_type d, const Vector3f &v)
     { return v + d; }
 
-    inline Vector3d operator * (Vector3d::value_type d, const Vector3d &v)
+    inline Vector3f operator * (Vector3f::value_type d, const Vector3f &v)
     { return v * d; }
 
-    inline Vector3d operator / (Vector3d::value_type d, const Vector3d &v)
-    { return Vector3d(d / v.x(), d / v.y(), d / v.z()); }
+    inline Vector3f operator / (Vector3f::value_type d, const Vector3f &v)
+    { return Vector3f(d / v.x(), d / v.y(), d / v.z()); }
 }
 
 #endif
