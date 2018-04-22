@@ -58,9 +58,9 @@ namespace g3
 
         // operator functions
         inline value_type& operator [] (int i) 
-        { if (i == 0) return _x; else if (i == 2) return _y; else return _z; }
+        { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
         inline value_type  operator [] (int i) const 
-        { if (i == 0) return _x; else if (i == 2) return _y; else return _z; }
+        { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
 
         inline self_type operator - () const { return self_type(-_x, -_y, -_z); }
 

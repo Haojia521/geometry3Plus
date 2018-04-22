@@ -61,7 +61,7 @@ namespace g3
         inline bool isNormalized() const
         { return std::abs((_x * _x + _y * _y) - 1.0) < mathUtil::zeroTolerance; }
 
-        // TODO: realize fucntion 'vector2d::round()'
+        // TODO: realize function 'vector2d::round()'
         inline void round(int decimals)
         { }
 

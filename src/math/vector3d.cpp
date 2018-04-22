@@ -25,7 +25,7 @@ namespace g3
         auto len = length();
         if (len > epsilon)
         {
-            double invLen = 1.0 / len;
+            auto invLen = 1.0 / len;
             _x *= invLen;
             _y *= invLen;
             _z *= invLen;
@@ -44,7 +44,7 @@ namespace g3
         auto len = length();
         if (len > mathUtil::epsilon)
         {
-            double invLen = 1.0 / len;
+            auto invLen = 1.0 / len;
             return Vector3d(_x * invLen, _y * invLen, _z * invLen);
         }
         else return Vector3d::zero;

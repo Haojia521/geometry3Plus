@@ -152,6 +152,7 @@
     <ClInclude Include="..\include\math\vector3d.h" />
     <ClInclude Include="..\include\math\vector3f.h" />
     <ClInclude Include="..\include\math\vector3i.h" />
+    <ClInclude Include="..\include\vector4d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\math\vector2d.cpp" />

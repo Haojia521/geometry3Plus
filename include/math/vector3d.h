@@ -90,7 +90,7 @@ namespace g3
         inline bool isNormalized() const
         { return std::abs((_x * _x + _y * _y + _z * _z) - 1.0) < mathUtil::zeroTolerance; }
 
-        // TODO: realize fucntion 'vector3d::round()'
+        // TODO: realize function 'vector3d::round()'
         inline void round(int decimals)
         { }
 
@@ -137,9 +137,9 @@ namespace g3
 
         // operator functions
         inline value_type& operator [] (int i) 
-        { if (i == 0) return _x; else if (i == 2) return _y; else return _z; }
+        { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
         inline value_type  operator [] (int i) const 
-        { if (i == 0) return _x; else if (i == 2) return _y; else return _z; }
+        { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
 
         inline operator Vector3f() const
         {
