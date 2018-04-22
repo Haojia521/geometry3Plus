@@ -56,7 +56,7 @@ namespace g3
         inline value_type angleD(const self_type &v) const
         {
             auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
-            return std::acos(fDot) * mathUtil::rad2deg;
+            return std::acos(fDot) * mathUtil::rad2degf;
         }
 
         inline value_type angleR(const self_type &v) const

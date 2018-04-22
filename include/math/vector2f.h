@@ -40,7 +40,7 @@ namespace g3
         { auto s = 1.f - t; return self_type(s * a.x() + t * b.x(), s * a.y() + t * b.y()); }
 
         // constructors
-        Vector2f() { _x = _y = 0.0; }
+        Vector2f() { _x = _y = 0.f; }
         Vector2f(value_type x, value_type y) { _x = x; _y = y; }
         Vector2f(value_type values[]) { _x = values[0]; _y = values[1]; }
         // copy-constructors

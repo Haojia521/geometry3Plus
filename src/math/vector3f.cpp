@@ -9,9 +9,9 @@ namespace g3
     const Vector3f Vector3f::zero     = Vector3f();
     const Vector3f Vector3f::one      = Vector3f(1.f, 1.f, 1.f);
     const Vector3f Vector3f::oneNormalized = Vector3f::one.normalized();
-    const Vector3f Vector3f::axisX    = Vector3f(1.0, 0.0, 0.0);
-    const Vector3f Vector3f::axisY    = Vector3f(0.0, 1.0, 0.0);
-    const Vector3f Vector3f::axisZ    = Vector3f(0.0, 0.0, 1.0);
+    const Vector3f Vector3f::axisX    = Vector3f(1.f, 0.f, 0.f);
+    const Vector3f Vector3f::axisY    = Vector3f(0.f, 1.f, 0.f);
+    const Vector3f Vector3f::axisZ    = Vector3f(0.f, 0.f, 1.f);
     const Vector3f Vector3f::maxValue = Vector3f(std::numeric_limits<Vector3f::value_type>::max(),
                                                  std::numeric_limits<Vector3f::value_type>::max(),
                                                  std::numeric_limits<Vector3f::value_type>::max());
@@ -42,7 +42,7 @@ namespace g3
     Vector3f::self_type Vector3f::normalized() const
     {
         auto len = length();
-        if (len > mathUtil::epsilon)
+        if (len > mathUtil::epsilonf)
         {
             auto invLen = 1.f / len;
             return Vector3f(_x * invLen, _y * invLen, _z * invLen);

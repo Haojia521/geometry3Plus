@@ -37,14 +37,14 @@ namespace g3
 
         static inline self_type lerp(const self_type &a, const self_type &b, value_type t)
         {
-            auto s = 1.f - t;
+            auto s = 1.0 - t;
             return self_type(s * a.x() + t * b.x(), 
                              s * a.y() + t * b.y(), 
                              s * a.z() + t * b.z());
         }
 
         // constructors
-        Vector3d() { _x = _y = _z = 0; }
+        Vector3d() { _x = _y = _z = 0.0; }
         Vector3d(value_type d) { _x = _y = _z = d;}
         Vector3d(value_type x, value_type y, value_type z) { _x = x; _y = y; _z = z; }
         Vector3d(value_type vals[]) { _x = vals[0]; _y = vals[1]; _z = vals[2]; }
