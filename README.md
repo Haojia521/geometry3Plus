@@ -10,4 +10,4 @@
 
 This project codes are ported from open-source project [geometry3Sharp](https://github.com/gradientspace/geometry3Sharp), which is a C# library for geometric computing. 
 
-All work of this project is just for fun. And I will use it to improve my skills for using git and github and learn new features of C++ introduced by C++11,14 and 17. So there is no guarantee of code integrity and platform portability.
+All work is just for fun. And I will improve my skills to use git and github and learn new features of C++ introduced by C++11,14 and 17 through this project. So there is no guarantee of code integrity and platform portability.
