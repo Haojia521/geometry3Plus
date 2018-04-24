@@ -148,6 +148,8 @@
   <ItemGroup>
     <ClInclude Include="..\include\g3Export.h" />
     <ClInclude Include="..\include\math\mathUtil.h" />
+    <ClInclude Include="..\include\math\triangle2.h" />
+    <ClInclude Include="..\include\math\triangle3.h" />
     <ClInclude Include="..\include\math\vector2d.h" />
     <ClInclude Include="..\include\math\vector2f.h" />
     <ClInclude Include="..\include\math\vector2i.h" />

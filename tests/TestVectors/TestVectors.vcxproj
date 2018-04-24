@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="testTriangleX.h" />
     <ClInclude Include="testUtil.h" />
     <ClInclude Include="testVectorsTypeConversion.h" />
     <ClInclude Include="testVectorXd.h" />

@@ -34,6 +34,25 @@ namespace g3
         template<typename T>
         inline T clamp(T value, T low, T high)
         { return (value < low) ? low : (value > high) ? high : value; }
+
+        template<typename T, typename U>
+        inline U barycentricCoords(const T &vp, const T &v0, const T &v1, const T &v2)
+        {
+            auto kV02 = v0 - v2;
+            auto kV12 = v1 - v2;
+            auto kPV2 = vp - v2;
+            auto fM00 = kV02.dot(kV02);
+            auto fM01 = kV02.dot(kV12);
+            auto fM11 = kV12.dot(kV12);
+            auto fR0  = kV02.dot(kPV2);
+            auto fR1  = kV12.dot(kPV2);
+            auto fDet = fM00 * fM11 - fM01 * fM01;
+            auto fInvDet = 1 / fDet;
+            auto fBary1 = (fM11 * fR0 - fM01 * fR1) * fInvDet;
+            auto fBary2 = (fM00 * fR1 - fM01 * fR0) * fInvDet;
+            auto fBary3 = 1 - fBary1 - fBary2;
+            return U(fBary1, fBary2, fBary3);
+        }
     }
 }
 

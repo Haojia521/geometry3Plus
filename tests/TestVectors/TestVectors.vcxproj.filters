@@ -24,6 +24,9 @@
     <ClInclude Include="testUtil.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="testTriangleX.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
