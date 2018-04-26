@@ -12,6 +12,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestVectors", "tests\TestVe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1DA1CCBC-9360-4C64-A35C-886FE75CF48C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMathIndexType", "tests\TestMathIndexType\TestMathIndexType.vcxproj", "{E4D51FB4-F966-4852-A4D7-AC09C24B373D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8943D403-5A22-4BAA-9831-4EA7A146EA96} = {8943D403-5A22-4BAA-9831-4EA7A146EA96}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -24,12 +29,18 @@ Global
 		{8943D403-5A22-4BAA-9831-4EA7A146EA96}.Release|x64.Build.0 = Release|x64
 		{A7C49880-3900-4597-8460-A76CDC8BAECD}.Debug|x64.ActiveCfg = Debug|x64
 		{A7C49880-3900-4597-8460-A76CDC8BAECD}.Debug|x64.Build.0 = Debug|x64
-		{A7C49880-3900-4597-8460-A76CDC8BAECD}.Release|x64.ActiveCfg = Release|Win32
+		{A7C49880-3900-4597-8460-A76CDC8BAECD}.Release|x64.ActiveCfg = Release|x64
+		{A7C49880-3900-4597-8460-A76CDC8BAECD}.Release|x64.Build.0 = Release|x64
+		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Debug|x64.ActiveCfg = Debug|x64
+		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Debug|x64.Build.0 = Debug|x64
+		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Release|x64.ActiveCfg = Release|x64
+		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7C49880-3900-4597-8460-A76CDC8BAECD} = {1DA1CCBC-9360-4C64-A35C-886FE75CF48C}
+		{E4D51FB4-F966-4852-A4D7-AC09C24B373D} = {1DA1CCBC-9360-4C64-A35C-886FE75CF48C}
 	EndGlobalSection
 EndGlobal
