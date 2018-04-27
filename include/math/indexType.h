@@ -24,8 +24,8 @@ namespace g3
         // operator functions
         inline operator value_type() { return _index; }
 
-        inline bool operator == (const self_type &i) { return _index == i._index; }
-        inline bool operator != (const self_type &i) { return !((*this) == i); }
+        inline bool operator == (const self_type &i) const { return _index == i._index; }
+        inline bool operator != (const self_type &i) const { return !((*this) == i); }
 
     private:
         value_type _index;
@@ -44,9 +44,7 @@ namespace g3
         static const self_type zero;
         static const self_type one;
         static const self_type invalid;
-
-        // values
-        const int num = n;
+        static const int num = n;
 
         // constructors
         IndexTemplate() { for (int j = 0; j < n; ++j) _indices[j] = value_type::invalidValue; }
@@ -74,13 +72,13 @@ namespace g3
         inline self_type& operator = (const self_type &other)
         { for (int j = 0; j < n; ++j) _indices[j] = other._indices[j]; return *this; }
 
-        inline bool operator == (const self_type &other)
+        inline bool operator == (const self_type &other) const
         {
             for (int j = 0; j < n; ++j) if (!(_indices[j] == other[j])) return false;
             return true;
         }
 
-        inline bool operator != (const self_type &other)
+        inline bool operator != (const self_type &other) const
         { return !((*this) == other); }
 
     protected:
