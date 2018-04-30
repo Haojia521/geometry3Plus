@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMathIndexType", "tests\
 		{8943D403-5A22-4BAA-9831-4EA7A146EA96} = {8943D403-5A22-4BAA-9831-4EA7A146EA96}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMath", "tests\TestMath\TestMath.vcxproj", "{C163660C-7E7B-4C8D-8E34-1E55D851D894}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -35,6 +37,10 @@ Global
 		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Debug|x64.Build.0 = Debug|x64
 		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Release|x64.ActiveCfg = Release|x64
 		{E4D51FB4-F966-4852-A4D7-AC09C24B373D}.Release|x64.Build.0 = Release|x64
+		{C163660C-7E7B-4C8D-8E34-1E55D851D894}.Debug|x64.ActiveCfg = Debug|x64
+		{C163660C-7E7B-4C8D-8E34-1E55D851D894}.Debug|x64.Build.0 = Debug|x64
+		{C163660C-7E7B-4C8D-8E34-1E55D851D894}.Release|x64.ActiveCfg = Release|x64
+		{C163660C-7E7B-4C8D-8E34-1E55D851D894}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +48,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A7C49880-3900-4597-8460-A76CDC8BAECD} = {1DA1CCBC-9360-4C64-A35C-886FE75CF48C}
 		{E4D51FB4-F966-4852-A4D7-AC09C24B373D} = {1DA1CCBC-9360-4C64-A35C-886FE75CF48C}
+		{C163660C-7E7B-4C8D-8E34-1E55D851D894} = {1DA1CCBC-9360-4C64-A35C-886FE75CF48C}
 	EndGlobalSection
 EndGlobal

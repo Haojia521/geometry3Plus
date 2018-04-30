@@ -27,15 +27,15 @@ namespace g3
         };
 
         // static values
-        static const self_type empty        = self_type();
-        static const self_type zero         = self_type(0);
-        static const self_type unitPositive = self_type(1);
-        static const self_type infinite     = self_type(vector_type::minValue, vector_type::maxValue);
+        static const self_type empty;
+        static const self_type zero;
+        static const self_type unitPositive;
+        static const self_type infinite;
 
         // constructors
         AxisAlignedBox2() : _min(vector_type::maxValue), _max(vector_type::minValue) {}
         AxisAlignedBox2(value_type xmin, value_type ymin, value_type xmax, value_type ymax) :
-            _min(xmin, ymin), _max(_xmax, ymax) {}
+            _min(xmin, ymin), _max(xmax, ymax) {}
         AxisAlignedBox2(value_type squareSize) :
             _min(0, 0), _max(squareSize, squareSize) {}
         AxisAlignedBox2(value_type width, value_type height) :
@@ -51,10 +51,17 @@ namespace g3
             _min(center), _max(center) {}
 
         // copy constructor
-        AxisAlignedBox2(const self_type &copy) :
-            _min(copy._min), _max(copy._max) {}
+        template<typename T>
+        inline operator AxisAlignedBox2<T>() const
+        {
+            return AxisAlignedBox2<T>(static_cast<T>(_min),
+                                      static_cast<T>(_max));
+        }
         
         // functions
+        vector_type minCoordinate() const { return _min; }
+        vector_type maxCoordinate() const { return _max; }
+
         inline bool valid() const { return (_max.x() >= _min.x() && _max.y() >= _min.y()); }
 
         inline value_type width() const { if (valid()) return _max.x() - _min.x(); else return 0; }
@@ -71,6 +78,7 @@ namespace g3
         // returns absolute value of largest min/max x/y coordinate (ie max axis distance to origin)
         inline value_type maxUnsignedCoordinate() const
         {
+            if (!valid()) return 0;
             return std::max(std::max(std::abs(_min.x()), std::abs(_max.x())), 
                             std::max(std::abs(_min.y()), std::abs(_max.y())));
         }
@@ -92,7 +100,7 @@ namespace g3
         }
 
         //! value is added to min and subtracted from max
-        inline void contract(double radius) {
+        inline void contract(value_type radius) {
             _min.x() += radius; _min.y() += radius;
             _max.x() -= radius; _max.y() -= radius;
         }
@@ -112,9 +120,11 @@ namespace g3
             case ScaleMode::ScaleRight:
                 _max.x() = _min.x() + newWidth; break;
             case ScaleMode::ScaleCenter:
+            {
                 auto c = center();
                 _min.x() = c.x() - 0.5f * newWidth;
                 _max.x() = c.x() + 0.5f * newWidth;
+            }
                 break;
             default:
                 break;
@@ -130,9 +140,11 @@ namespace g3
             case ScaleMode::ScaleUp:
                 _max.y() = _min.y() + newHeight; break;
             case ScaleMode::ScaleCenter:
+            {
                 auto c = center();
                 _min.y() = c.y() - 0.5f * newHeight;
                 _max.y() = c.y() + 0.5f * newHeight;
+            }
                 break;
             default:
                 break;
@@ -178,13 +190,13 @@ namespace g3
             self_type intersection(std::max(_min.x(), box._min.x()), 
                                    std::max(_min.y(), box._min.y()), 
                                    std::min(_max.x(), box._max.x()), 
-                                   std::min(_max.y(), box._min.y()));
+                                   std::min(_max.y(), box._max.y()));
             if (intersection.valid()) return intersection;
             else return self_type::empty;
         }
 
         inline bool contains(const vector_type &v) const
-        { return (_min.x() <= v.x()) && (_min.y() <= v.y()) && (_max.x() => v.x()) && (_max.y() => v.y()); }
+        { return (_min.x() <= v.x()) && (_min.y() <= v.y()) && (_max.x() >= v.x()) && (_max.y() >= v.y()); }
 
         inline bool contains(const self_type &box) const
         { return contains(box._min) && contains(box._max); }
@@ -200,8 +212,8 @@ namespace g3
             value_type hh = height() * 0.5f;
             if (dx < hw && dy < hh) return 0;
             else if (dx > hw && dy > hh)
-                return std::sqrt((dx - fw) * (dx - fw) + (dy - hh) * (dy - hh));
-            else if (dx > hw) return (dx - fw);
+                return std::sqrt((dx - hw) * (dx - hw) + (dy - hh) * (dy - hh));
+            else if (dx > hw) return (dx - hw);
             else if (dy > hh) return (dy - hh);
             else return 0;
         }
@@ -221,6 +233,15 @@ namespace g3
     private:
         vector_type _min, _max;
     };
+
+    template<typename T>
+    const AxisAlignedBox2<T> AxisAlignedBox2<T>::empty = AxisAlignedBox2<T>();
+    template<typename T>
+    const AxisAlignedBox2<T> AxisAlignedBox2<T>::zero = AxisAlignedBox2<T>(0);
+    template<typename T>
+    const AxisAlignedBox2<T> AxisAlignedBox2<T>::unitPositive = AxisAlignedBox2<T>(1);
+    template<typename T>
+    const AxisAlignedBox2<T> AxisAlignedBox2<T>::infinite = AxisAlignedBox2<T>(AxisAlignedBox2<T>::vector_type::minValue, AxisAlignedBox2<T>::vector_type::maxValue);
 
     typedef AxisAlignedBox2<Vector2d> AxisAlignedBox2d;
     typedef AxisAlignedBox2<Vector2f> AxisAlignedBox2f;
