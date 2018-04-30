@@ -13,9 +13,9 @@ namespace g3
     class AxisAlignedBox2
     {
     public:
-        typedef VecT                      vector_type;
-        typedef typename VecT::value_type value_type;
-        typedef AxisAlignedBox2<VecT>     self_type;
+        typedef VecT                             vector_type;
+        typedef typename vector_type::value_type value_type;
+        typedef AxisAlignedBox2<vector_type>     self_type;
 
         enum ScaleMode
         {
@@ -38,7 +38,7 @@ namespace g3
             _min(xmin, ymin), _max(_xmax, ymax) {}
         AxisAlignedBox2(value_type squareSize) :
             _min(0, 0), _max(squareSize, squareSize) {}
-        AxisAlignedBox2(value_type width, height) :
+        AxisAlignedBox2(value_type width, value_type height) :
             _min(0, 0), _max(width, height) {}
         AxisAlignedBox2(const vector_type &vmin, const vector_type &vmax) :
             _min(vmin), _max(vmax) {}
@@ -65,14 +65,14 @@ namespace g3
         inline value_type diagonalLength() const
         { return std::sqrt(width() * width() + height() * height()); }
 
-        inline value_type maxDim() const { return std::fmax(width(), height()); }
-        inline value_type minDim() const { return std::fmin(width(), height()); }
+        inline value_type maxDim() const { return std::max(width(), height()); }
+        inline value_type minDim() const { return std::min(width(), height()); }
 
         // returns absolute value of largest min/max x/y coordinate (ie max axis distance to origin)
         inline value_type maxUnsignedCoordinate() const
         {
-            return std::fmax(std::fmax(std::abs(_min.x()), std::abs(_max.x())), 
-                             std::fmax(std::abs(_min.y()), std::abs(_max.y())));
+            return std::max(std::max(std::abs(_min.x()), std::abs(_max.x())), 
+                            std::max(std::abs(_min.y()), std::abs(_max.y())));
         }
 
         inline vector_type diagonal() const { if (valid()) return (_max - _min); else return vector_type(); }
@@ -184,7 +184,7 @@ namespace g3
         }
 
         inline bool contains(const vector_type &v) const
-        { return (_min.x() < v.x()) && (_min.y() < v.y()) && (_max.x() > v.x()) && (_max.y() > v.y()); }
+        { return (_min.x() <= v.x()) && (_min.y() <= v.y()) && (_max.x() => v.x()) && (_max.y() => v.y()); }
 
         inline bool contains(const self_type &box) const
         { return contains(box._min) && contains(box._max); }

@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\g3Export.h" />
     <ClInclude Include="..\include\math\AxisAlignedBox2.h" />
+    <ClInclude Include="..\include\math\AxisAlignedBox3.h" />
     <ClInclude Include="..\include\math\indexType.h" />
     <ClInclude Include="..\include\math\IndexUtil.h" />
     <ClInclude Include="..\include\math\mathUtil.h" />
