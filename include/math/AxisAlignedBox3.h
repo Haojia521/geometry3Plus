@@ -28,9 +28,9 @@ namespace g3
                         value_type xmax, value_type ymax, value_type zmax) :
             _min(xmin, ymin, zmin), _max(xmax, ymax, zmax) {}
         AxisAlignedBox3(value_type cubeSize) :
-            _min(0, 0), _max(cubeSize, cubeSize, cubeSize) {}
+            _min(0, 0, 0), _max(cubeSize, cubeSize, cubeSize) {}
         AxisAlignedBox3(value_type width, value_type height, value_type depth) :
-            _min(0, 0), _max(width, height, depth) {}
+            _min(0, 0, 0), _max(width, height, depth) {}
         AxisAlignedBox3(const vector_type &vmin, const vector_type &vmax) :
             _min(vmin), _max(vmax) {}
         AxisAlignedBox3(const vector_type &center, 
@@ -82,7 +82,7 @@ namespace g3
         //      | /3     | / 2        |/_____
         //      |/_______|/           O      x
         // (min)0        1
-        vector_type corner(int i)
+        vector_type corner(int i) const
         {
             value_type x = (((i & 1) != 0) ^ ((i & 2) != 0)) ? _max.x() : _min.x();
             value_type y = ((i / 2) % 2 == 0) ? _min.y() : _max.y();
@@ -168,7 +168,7 @@ namespace g3
 
         bool intersects(const self_type &box) const { return intersect(box).valid(); }
 
-        inline value_type distanceSquared(const vector_type &v)
+        inline value_type distanceSquared(const vector_type &v) const
         {
             value_type dx = (v.x() < _min.x()) ? _min.x() - v.x() : (v.x() > _max.x() ? v.x() - _max.x() : 0);
             value_type dy = (v.y() < _min.y()) ? _min.y() - v.y() : (v.y() > _max.y() ? v.y() - _max.y() : 0);
@@ -176,10 +176,10 @@ namespace g3
             return dx * dx + dy * dy + dz * dz;
         } 
 
-        inline value_type distance(const vector_type &v)
+        inline value_type distance(const vector_type &v) const
         { return std::sqrt(distanceSquared(v)); }
 
-        value_type signedDistance(const vector_type &v)
+        value_type signedDistance(const vector_type &v) const
         {
             if (!contains(v)) return distance(v);
             else
@@ -191,7 +191,7 @@ namespace g3
             }
         }
 
-        value_type distanceSquared(const self_type &box)
+        value_type distanceSquared(const self_type &box) const
         {
             // compute lensqr( max(0, abs(center1-center2) - (extent1+extent2)) )
             value_type delta_x = std::abs((box._min.x() + box._max.x()) - (_min.x() + _max.x())) - 

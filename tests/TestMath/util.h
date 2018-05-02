@@ -2,6 +2,7 @@
 #define G3_TEST_MATH_UTIL
 
 #include <iostream>
+#include <string>
 
 namespace g3test
 {
@@ -24,6 +25,8 @@ namespace g3test
     {
         std::cout << "AxisAlignedBox2 : " << info << std::endl;
         std::cout << " -> vadility : " << aab.valid() << std::endl;
+        printVector2(aab.minCoordinate(), " -> mincoord");
+        printVector2(aab.maxCoordinate(), " -> maxcoord");
         printVector2(aab.center(), " -> center");
         std::cout << " -> width : " << aab.width() << std::endl;
         std::cout << " -> height : " << aab.height() << std::endl;
@@ -45,6 +48,43 @@ namespace g3test
         printVector2(aab.center(), " -> center");
         std::cout << " -> width : " << aab.width() << std::endl;
         std::cout << " -> height : " << aab.height() << std::endl;
+    }
+
+    template<typename AAB3>
+    void printAAB3(const AAB3 &aab, const char *info)
+    {
+        std::cout << "AxisAlignedBox3 : " << info << std::endl;
+        std::cout << " -> vadility : " << aab.valid() << std::endl;
+        printVector3(aab.minCoordinate(), " -> mincoord");
+        printVector3(aab.maxCoordinate(), " -> maxcoord");
+        printVector3(aab.center(), " -> center");
+        std::cout << " -> width : " << aab.width() << std::endl;
+        std::cout << " -> height : " << aab.height() << std::endl;
+        std::cout << " -> depth : " << aab.depth() << std::endl;
+        std::cout << " -> volume : " << aab.volume() << std::endl;
+        std::cout << " -> diagonalLength : " << aab.diagonalLength() << std::endl;
+        std::cout << " -> maxDim : " << aab.maxDim() << std::endl;
+        std::cout << " -> minDim : " << aab.minDim() << std::endl;
+        printVector3(aab.diagonal(), " -> diagonal");
+        printVector3(aab.extents(), " -> extents");
+        for (int i = 0; i < 8; ++i)
+        {
+            std::string str = std::string(" -> corner ") + std::to_string(i);
+            printVector3(aab.corner(i), str.c_str());
+        }
+    }
+
+    template<typename AAB3>
+    void printAAB3Simple(const AAB3 &aab, const char *info)
+    {
+        std::cout << "AxisAlignedBox3 : " << info << std::endl;
+        std::cout << " -> vadility : " << aab.valid() << std::endl;
+        printVector3(aab.minCoordinate(), " -> mincoord");
+        printVector3(aab.maxCoordinate(), " -> maxcoord");
+        printVector3(aab.center(), " -> center");
+        std::cout << " -> width : " << aab.width() << std::endl;
+        std::cout << " -> height : " << aab.height() << std::endl;
+        std::cout << " -> depth : " << aab.depth() << std::endl;
     }
 }
 

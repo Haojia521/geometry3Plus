@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="testAxisAlignedBox2.h" />
+    <ClInclude Include="testAxisAlignedBox3.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
