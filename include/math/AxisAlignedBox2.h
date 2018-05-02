@@ -59,8 +59,8 @@ namespace g3
         }
         
         // functions
-        vector_type minCoordinate() const { return _min; }
-        vector_type maxCoordinate() const { return _max; }
+        inline vector_type minCoordinate() const { return _min; }
+        inline vector_type maxCoordinate() const { return _max; }
 
         inline bool valid() const { return (_max.x() >= _min.x() && _max.y() >= _min.y()); }
 
