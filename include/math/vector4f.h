@@ -41,11 +41,11 @@ namespace g3
         inline value_type length() const { return std::sqrt(_x * _x + _y * _y + _z * _z + _w * _w); }
         inline value_type lengthL1() const { return std::abs(_x) + std::abs(_y) + std::abs(_z) + std::abs(_w); }
 
-        value_type normalize(value_type epsilon = mathUtil::epsilonf);
+        value_type normalize(value_type epsilon = mathUtil::getEpsilon<value_type>());
         self_type normalized() const;
 
         inline bool isNormalized() const
-        { return std::abs((_x * _x + _y * _y + _z * _z + _w * _w) - 1.f) < mathUtil::zeroTolerancef; }
+        { return std::abs((_x * _x + _y * _y + _z * _z + _w * _w) - 1.f) < mathUtil::getZeroTolerance<value_type>(); }
 
         // TODO: realize function 'vector4f::round()'
         inline void round(int decimals)
@@ -57,7 +57,7 @@ namespace g3
         inline value_type angleD(const self_type &v) const
         {
             auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
-            return std::acos(fDot) * mathUtil::rad2degf;
+            return std::acos(fDot) * mathUtil::getRad2Deg<value_type>();
         }
 
         inline value_type angleR(const self_type &v) const

@@ -61,13 +61,16 @@
     <ClInclude Include="..\include\math\indexType.h">
       <Filter>Include\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\math\IndexUtil.h">
+    <ClInclude Include="..\include\math\axisAlignedBox2.h">
       <Filter>Include\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\math\AxisAlignedBox2.h">
+    <ClInclude Include="..\include\math\axisAlignedBox3.h">
       <Filter>Include\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\math\AxisAlignedBox3.h">
+    <ClInclude Include="..\include\math\indexUtil.h">
+      <Filter>Include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\matrix2.h">
       <Filter>Include\math</Filter>
     </ClInclude>
   </ItemGroup>

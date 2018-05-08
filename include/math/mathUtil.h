@@ -8,6 +8,7 @@ namespace g3
         const double PI      = 3.1415926535897932384626433832795;
         const double twoPI   = 2.0 * PI;
         const double halfPI  = 0.5 * PI;
+
         const double deg2rad = PI / 180.0;
         const double rad2deg = 180 / PI;
 
@@ -18,18 +19,29 @@ namespace g3
         const double sqrtTwoInv = 1.0 / sqrtTwo;
         const double sqrtThree  = 1.7320508075688772935274463415059;
 
-        const float PIf      = static_cast<float>(PI);
-        const float twoPIf   = static_cast<float>(twoPI);
-        const float halfPIf  = static_cast<float>(halfPI);
-        const float deg2radf = static_cast<float>(deg2rad);
-        const float rad2degf = static_cast<float>(rad2deg);
+        template<typename T>
+        inline T getPI() { return static_cast<T>(PI); }
+        template<typename T>
+        inline T getTwoPI() { return static_cast<T>(twoPI); }
+        template<typename T>
+        inline T getHalfPI() { return static_cast<T>(halfPI); }
 
-        const float zeroTolerancef = static_cast<float>(zeroTolerance);
-        const float epsilonf       = static_cast<float>(epsilon);
+        template<typename T>
+        inline T getDeg2Rad() { return static_cast<T>(deg2rad); }
+        template<typename T>
+        inline T getRad2Deg() { return static_cast<T>(rad2deg); }
 
-        const double sqrtTwof    = static_cast<float>(sqrtTwo);
-        const double sqrtTwoInvf = static_cast<float>(sqrtTwoInv);
-        const double sqrtThreef  = static_cast<float>(sqrtThree);
+        template<typename T>
+        inline T getZeroTolerance() { return static_cast<T>(zeroTolerance); }
+        template<typename T>
+        inline T getEpsilon() { return static_cast<T>(epsilon); }
+
+        template<typename T>
+        inline T getSqrtTwo() { return static_cast<T>(sqrtTwo); }
+        template<typename T>
+        inline T getSqrtTwoInv() { return static_cast<T>(sqrtTwoInv); }
+        template<typename T>
+        inline T getSqrtThree() { return static_cast<T>(sqrtThree); }
 
         template<typename T>
         inline T clamp(T value, T low, T high)
