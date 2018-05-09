@@ -28,11 +28,11 @@ namespace g3
         {
             if (isIdentity)
             {
-                _row0[0] = _row1[1] = 1;
-                _row0[1] = _row1[0] = 0;
+                _row0 = vector_type::axisX;
+                _row1 = vector_type::axisY;
             }
             else
-            { _row0[0] = row0[1] = _row1[0] = _row1[1] = 0; }
+            { _row0 = _row1 = vector_type::zero; }
         }
         Matrix2(value_type m00, value_type m01, value_type m10, value_type m11)
         { _row0[0] = m00; _row0[1] = m01; _row1[0] = m10; _row1[1] = m11; }
@@ -57,6 +57,12 @@ namespace g3
         }
 
         // type conversion
+        template<typename T>
+        inline operator Matrix2<T>() const
+        {
+            return Matrix2<T>(static_cast<T>(_row0), 
+                              static_cast<T>(_row1), false);
+        }
 
         // functions
         inline void setToRow(const vector_type &u, const vector_type &v)
@@ -203,6 +209,15 @@ namespace g3
     private:
         vector_type _row0, _row1;
     };
+
+    template<typename T>
+    const Matrix2<T> Matrix2<T>::identity = Matrix2<T>(true);
+
+    template<typename T>
+    const Matrix2<T> Matrix2<T>::zero = Matrix2<T>();
+
+    template<typename T>
+    const Matrix2<T> Matrix2<T>::one = Matrix2<T>(1, 1, 1, 1);
 
     template<typename T>
     inline Matrix2<T> operator * (Matrix2<T>::value_type n, const Matrix2<T> &m)
