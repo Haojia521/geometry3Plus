@@ -78,6 +78,13 @@ namespace g3
         }
 
         // type conversion
+        template<typename T>
+        inline operator Matrix3<T>() const
+        {
+            return Matrix3<T>(static_cast<T>(_row0),
+                              static_cast<T>(_row1),
+                              static_cast<T>(_row2), false);
+        }
 
         // functions
         inline vector_type row(int i) const

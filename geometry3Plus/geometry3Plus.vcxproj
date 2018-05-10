@@ -88,6 +88,7 @@
     <ClInclude Include="..\include\math\indexUtil.h" />
     <ClInclude Include="..\include\math\mathUtil.h" />
     <ClInclude Include="..\include\math\matrix2.h" />
+    <ClInclude Include="..\include\math\matrix3.h" />
     <ClInclude Include="..\include\math\triangle2.h" />
     <ClInclude Include="..\include\math\triangle3.h" />
     <ClInclude Include="..\include\math\vector2d.h" />
