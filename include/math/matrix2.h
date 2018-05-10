@@ -94,7 +94,7 @@ namespace g3
         { return u.dot((*this) * v); }
 
         inline self_type transpose() const
-        { return self_type(_row0[0], _row1[0], _row0[1], _row1[1]); }
+        { return self_type(_row0, _row1, true); }
 
         inline self_type inverse(value_type epsilon = mathUtil::getEpsilon<value_type>())
         {
@@ -225,7 +225,7 @@ namespace g3
 
     template<typename T>
     inline Matrix2<T>::vector_type operator * (const Matrix2<T>::vector_type &v, const Matrix2<T> &m)
-    { return Matrix2<T>::vector_type(m._row0.dot(v), m._row1.dot(v)); }
+    { return Matrix2<T>::vector_type(v.dot(m.column(0)), v.dot(m.column(1)); }
 
     typedef Matrix2<Vector2d> Matrix2d;
     typedef Matrix2<Vector2f> Matrix2f;
