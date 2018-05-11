@@ -36,7 +36,7 @@ namespace g3
     Vector2f::self_type Vector2f::normalized() const
     {
         auto len = length();
-        if (len > mathUtil::epsilonf)
+        if (len > mathUtil::getEpsilon<value_type>())
         {
             auto invLen = 1.f / len;
             return Vector2f(_x * invLen, _y * invLen);

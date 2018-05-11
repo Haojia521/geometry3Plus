@@ -42,7 +42,7 @@ namespace g3
     Vector3f::self_type Vector3f::normalized() const
     {
         auto len = length();
-        if (len > mathUtil::epsilonf)
+        if (len > mathUtil::getEpsilon<value_type>())
         {
             auto invLen = 1.f / len;
             return Vector3f(_x * invLen, _y * invLen, _z * invLen);

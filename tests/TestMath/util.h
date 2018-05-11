@@ -86,6 +86,14 @@ namespace g3test
         std::cout << " -> height : " << aab.height() << std::endl;
         std::cout << " -> depth : " << aab.depth() << std::endl;
     }
+
+    template<typename Mat2>
+    void printMatrix2(const Mat2 &mat, const char *info)
+    {
+        std::cout << "Matrix2 : " << info << std::endl;
+        printVector2(mat.row(0), " -> row 0");
+        printVector2(mat.row(1), " -> row 1");
+    }
 }
 
 #endif

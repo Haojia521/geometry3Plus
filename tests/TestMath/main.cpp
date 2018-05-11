@@ -1,4 +1,4 @@
-#define TEST_AAB3
+#define TEST_MAT2
 
 #ifdef TEST_AAB2
 #include "testAxisAlignedBox2.h"
@@ -6,6 +6,10 @@
 
 #ifdef TEST_AAB3
 #include "testAxisAlignedBox3.h"
+#endif
+
+#ifdef TEST_MAT2
+#include "testMatrix2.h"
 #endif
 
 using namespace g3test;
@@ -31,6 +35,20 @@ int main()
     std::cout << std::endl;
     std::cout << "testAAB3_nonConstFunctions :" << std::endl;
     testAAB3_nonConstFunctions();
+#endif
+
+#ifdef TEST_MAT2
+    // test matrix 2
+    testMatrix2_constructor();
+    std::cout << std::endl;
+    std::cout << "testMatrix2_constFunctions :" << std::endl;
+    testMatrix2_constFunctions();
+    std::cout << std::endl;
+    std::cout << "testMatrix2_nonConstFunctions :" << std::endl;
+    testMatrix2_nonConstFunctions();
+    std::cout << std::endl;
+    std::cout << "testMatrix2_operatorFunctions" << std::endl;
+    testMatrix2_operatorFunctions();
 #endif
 
     system("pause");
