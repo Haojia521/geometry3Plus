@@ -1,6 +1,8 @@
 #ifndef G3_MATH_INDEX_TYPE
 #define G3_MATH_INDEX_TYPE
 
+#include <type_traits>
+
 namespace g3
 {
     class Index
@@ -33,33 +35,33 @@ namespace g3
 
     const Index::value_type Index::invalidValue = 0xffffffff;
 
-    template<int n>
+    template<int N, class = typename std::enable_if<(N > 0)>::type>
     class IndexTemplate
     {
     public:
         typedef Index            value_type;
-        typedef IndexTemplate<n> self_type;
+        typedef IndexTemplate<N> self_type;
 
         // static values
         static const self_type zero;
         static const self_type one;
         static const self_type invalid;
-        static const int num = n;
+        static const int num = N;
 
         // constructors
-        IndexTemplate() { for (int j = 0; j < n; ++j) _indices[j] = value_type::invalidValue; }
-        IndexTemplate(value_type i) { for (int j = 0; j < n; ++j) _indices[j] = i; }
-        IndexTemplate(const self_type &i) { for (int j = 0; j < n; ++j) _indices[j] = i._indices[j]; }
+        IndexTemplate() { for (int j = 0; j < N; ++j) _indices[j] = value_type::invalidValue; }
+        IndexTemplate(value_type i) { for (int j = 0; j < N; ++j) _indices[j] = i; }
+        IndexTemplate(const self_type &i) { for (int j = 0; j < N; ++j) _indices[j] = i._indices[j]; }
 
         // functions
         inline bool valid()
         {
-            for (int j = 0; j < n; ++j) if (!_indices[j].valid()) return false;
+            for (int j = 0; j < N; ++j) if (!_indices[j].valid()) return false;
             return true;
         }
 
         inline void invalidate()
-        { for (int j = 0; j < n; ++j) _indices[j].invalidate(); }
+        { for (int j = 0; j < N; ++j) _indices[j].invalidate(); }
 
         // TODO : realize funtion array()
 
@@ -70,11 +72,11 @@ namespace g3
         { return (i >= 0 && i < num) ? _indices[i] : (i < 0) ? _indices[0] : _indices[num - 1]; }
 
         inline self_type& operator = (const self_type &other)
-        { for (int j = 0; j < n; ++j) _indices[j] = other._indices[j]; return *this; }
+        { for (int j = 0; j < N; ++j) _indices[j] = other._indices[j]; return *this; }
 
         inline bool operator == (const self_type &other) const
         {
-            for (int j = 0; j < n; ++j) if (!(_indices[j] == other[j])) return false;
+            for (int j = 0; j < N; ++j) if (!(_indices[j] == other[j])) return false;
             return true;
         }
 
@@ -82,17 +84,17 @@ namespace g3
         { return !((*this) == other); }
 
     protected:
-        value_type _indices[n];
+        value_type _indices[N];
     };
 
-    template<int n>
-    const IndexTemplate<n> IndexTemplate<n>::zero = IndexTemplate<n>(0);
+    template<int N, class U = typename std::enable_if<(N > 0)>::type>
+    const IndexTemplate<N, U> IndexTemplate<N, U>::zero = IndexTemplate<N, U>(0);
 
-    template<int n>
-    const IndexTemplate<n> IndexTemplate<n>::one = IndexTemplate<n>(1);
+    template<int N, class U = typename std::enable_if<(N > 0)>::type>
+    const IndexTemplate<N, U> IndexTemplate<N, U>::one = IndexTemplate<N, U>(1);
 
-    template<int n>
-    const IndexTemplate<n> IndexTemplate<n>::invalid = IndexTemplate<n>(Index::invalidValue);
+    template<int N, class U = typename std::enable_if<(N > 0)>::type>
+    const IndexTemplate<N, U> IndexTemplate<N, U>::invalid = IndexTemplate<N, U>(Index::invalidValue);
 
     class Index2 : public IndexTemplate<2>
     {
