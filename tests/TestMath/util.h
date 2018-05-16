@@ -94,6 +94,15 @@ namespace g3test
         printVector2(mat.row(0), " -> row 0");
         printVector2(mat.row(1), " -> row 1");
     }
+
+    template<typename Mat3>
+    void printMatrix3(const Mat3 &mat, const char *info)
+    {
+        std::cout << "Matrix3 : " << info << std::endl;
+        printVector3(mat.row(0), " -> row 0");
+        printVector3(mat.row(1), " -> row 1");
+        printVector3(mat.row(2), " -> row 2");
+    }
 }
 
 #endif

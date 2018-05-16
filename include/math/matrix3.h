@@ -31,13 +31,13 @@ namespace g3
             else
             { _row0 = _row1 = _row2 = vector_type::zero; }
         }
-        Matrix3(const value_type[] m)  // assume input is row-major and no check of out-of-range exception
+        Matrix3(const value_type m[])  // assume input is row-major and no check of out-of-range exception
         {
             _row0.set(m[0], m[1], m[2]);
             _row1.set(m[3], m[4], m[5]);
             _row2.set(m[6], m[7], m[8]);
         }
-        Matrix3(const value_type[][] m) // no check of out-of-range exception
+        Matrix3(const value_type m[][3]) // no check of out-of-range exception
         {
             _row0.set(m[0][0], m[0][1], m[0][2]);
             _row1.set(m[1][0], m[1][1], m[1][2]);
@@ -57,7 +57,7 @@ namespace g3
         }
         Matrix3(value_type m00, value_type m11, value_type m22)
         { _row0.set(m00, 0, 0); _row1.set(0, m11, 0); _row2.set(0, 0, m22); }
-        Matrix3(const vector_type &v0, const vector_type &v1, const vector_type &v2
+        Matrix3(const vector_type &v0, const vector_type &v1, const vector_type &v2,
                 bool beColumns)
         {
             if (beColumns)
@@ -97,7 +97,7 @@ namespace g3
                               vector_type(_row0[2], _row1[2], _row2[2]);
         }
 
-        inline void toBuffer(value_type[] buffer) const // no check of out-of-range exception
+        inline void toBuffer(value_type buffer[]) const // no check of out-of-range exception
         {
             buffer[0] = _row0[0]; buffer[1] = _row0[1]; buffer[2] = _row0[2];
             buffer[3] = _row1[0]; buffer[4] = _row1[1]; buffer[5] = _row1[2];
@@ -148,10 +148,10 @@ namespace g3
         }
 
         // operator functions
-        inline value_type& operator [] (int, int)
-        { return (r == 0) ? _row0[c] : ((r == 1) ? : _row1[c] : _row2[c]); }
-        inline value_type  operator [] (int, int) const
-        { return (r == 0) ? _row0[c] : ((r == 1) ? : _row1[c] : _row2[c]); }
+        inline vector_type& operator [] (int r)
+        { return (r == 0) ? _row0 : (r == 1) ? _row1 : _row2; }
+        inline vector_type  operator [] (int r) const
+        { return (r == 0) ? _row0 : (r == 1) ? _row1 : _row2; }
 
         inline self_type operator - () const
         { return self_type(-_row0, -_row1, -_row2, false); }
@@ -168,21 +168,23 @@ namespace g3
         inline self_type operator * (const self_type &m) const
         {
             auto mCol0 = m.column(0), mCol1 = m.column(1), mCol2 = m.column(2);
-            auto m00 = _row0 * mCol0, m01 = _row0 * mCol1, m02 = _row0 * mCol2;
-            auto m10 = _row1 * mCol0, m11 = _row1 * mCol1, m12 = _row1 * mCol2;
-            auto m20 = _row2 * mCol0, m21 = _row2 * mCol1, m22 = _row2 * mCol2;
+            auto m00 = _row0.dot(mCol0), m01 = _row0.dot(mCol1), m02 = _row0.dot(mCol2);
+            auto m10 = _row1.dot(mCol0), m11 = _row1.dot(mCol1), m12 = _row1.dot(mCol2);
+            auto m20 = _row2.dot(mCol0), m21 = _row2.dot(mCol1), m22 = _row2.dot(mCol2);
             return self_type(m00, m01, m02, m10, m11, m12, m20, m21, m22);
         }
         inline self_type operator * (value_type n) const
         { return self_type(_row0 * n, _row1 * n, _row2 * n, false); }
-        friend self_type operator * (value_type n, const self_type &m);
+        template<typename T>
+        friend Matrix3<T> operator * (typename Matrix3<T>::value_type n, const Matrix3<T> &m);
 
         inline self_type operator / (value_type n) const
         { return self_type(_row0 / n, _row1 / n, _row2 / n, false); }
 
         inline vector_type operator * (const vector_type &v) const
         { return vector_type(_row0.dot(v), _row1.dot(v), _row2.dot(v)); }
-        friend vector_type operator * (const vector_type &v, const self_type &m);
+        template<typename T>
+        friend typename Matrix3<T>::vector_type operator * (const typename Matrix3<T>::vector_type &v, const Matrix3<T> &m);
 
     private:
         vector_type _row0, _row1, _row2;
@@ -195,11 +197,11 @@ namespace g3
     const Matrix3<T> Matrix3<T>::zero = Matrix3<T>();
 
     template<typename T>
-    inline Matrix3<T> operator * (Matrix3<T>::value_type n, const Matrix3<T> &m)
+    inline Matrix3<T> operator * (typename Matrix3<T>::value_type n, const Matrix3<T> &m)
     { return Matrix3<T>(m._row0 * n, m._row1 * n, m._row2 * n, false); }
 
     template<typename T>
-    inline Matrix3<T> operator * (const Matrix3<T>::vector_type &v, const Matrix3<T> &m)
+    inline typename Matrix3<T>::vector_type operator * (const typename Matrix3<T>::vector_type &v, const Matrix3<T> &m)
     { return Matrix3<T>::vector_type(v.dot(m.column(0)), v.dot(m.column(1)), v.dot(m.column(2))); }
 
     typedef Matrix3<Vector3d> Matrix3d;

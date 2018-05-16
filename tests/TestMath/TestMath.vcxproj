@@ -85,6 +85,7 @@
     <ClInclude Include="testAxisAlignedBox2.h" />
     <ClInclude Include="testAxisAlignedBox3.h" />
     <ClInclude Include="testMatrix2.h" />
+    <ClInclude Include="testMatrix3.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
