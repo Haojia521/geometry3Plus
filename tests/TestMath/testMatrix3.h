@@ -26,9 +26,9 @@ namespace g3test
         Matrix3d m3d1;
         Matrix3d m3d2(true);
 
-        double dv1[] = {3, 2, 1, 5, 4, 6, 9, 7, 8};
+        std::vector<double> dv1 {3, 2, 1, 5, 4, 6, 9, 7, 8};
         Matrix3d m3d3(dv1);
-        double dv2[][3] = { { 1, 4, 7 }, { 8, 2, 5 }, {6, 9, 3} };
+        std::vector<std::vector<double>> dv2 { { 1, 4, 7 }, { 8, 2, 5 }, {6, 9, 3} };
         Matrix3d m3d4(dv2);
         Matrix3d m3d5(std::function<double(int)>([](int i) -> double { return i * 3; }));
         std::function<double(int)> f1(func1);

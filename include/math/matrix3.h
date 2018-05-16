@@ -2,6 +2,7 @@
 #define G3_MATH_MATRIX_3
 
 #include <cmath>
+#include <vector>
 #include <functional>
 
 #include <math/mathUtil.h>
@@ -31,13 +32,13 @@ namespace g3
             else
             { _row0 = _row1 = _row2 = vector_type::zero; }
         }
-        Matrix3(const value_type m[])  // assume input is row-major and no check of out-of-range exception
+        Matrix3(const std::vector<value_type> m)  // assume input is row-major and no check of out-of-range exception
         {
             _row0.set(m[0], m[1], m[2]);
             _row1.set(m[3], m[4], m[5]);
             _row2.set(m[6], m[7], m[8]);
         }
-        Matrix3(const value_type m[][3]) // no check of out-of-range exception
+        Matrix3(const std::vector<std::vector<value_type>> m) // no check of out-of-range exception
         {
             _row0.set(m[0][0], m[0][1], m[0][2]);
             _row1.set(m[1][0], m[1][1], m[1][2]);
