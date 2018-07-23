@@ -2,6 +2,7 @@
 #define G3_MATH_VECTOR_2_I
 
 #include <g3Export.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -95,6 +96,12 @@ namespace g3
 
     inline Vector2i operator / (Vector2i::value_type d, const Vector2i &v)
     { return Vector2i(d / v.x(), d / v.y()); }
+
+    template<>
+    struct Vector2Traits<int>
+    {
+        typedef Vector2i vector_type;
+    };
 }
 
 #endif

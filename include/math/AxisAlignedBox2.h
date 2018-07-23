@@ -9,13 +9,13 @@
 
 namespace g3
 {
-    template<typename VecT>
+    template<typename T>
     class AxisAlignedBox2
     {
     public:
-        typedef VecT                             vector_type;
-        typedef typename vector_type::value_type value_type;
-        typedef AxisAlignedBox2<vector_type>     self_type;
+        typedef typename Vector2Traits<T>::vector_type vector_type;
+        typedef typename vector_type::value_type       value_type;
+        typedef AxisAlignedBox2<T>                     self_type;
 
         enum ScaleMode
         {
@@ -241,11 +241,13 @@ namespace g3
     template<typename T>
     const AxisAlignedBox2<T> AxisAlignedBox2<T>::unitPositive = AxisAlignedBox2<T>(1);
     template<typename T>
-    const AxisAlignedBox2<T> AxisAlignedBox2<T>::infinite = AxisAlignedBox2<T>(AxisAlignedBox2<T>::vector_type::minValue, AxisAlignedBox2<T>::vector_type::maxValue);
+    const AxisAlignedBox2<T> AxisAlignedBox2<T>::infinite = 
+        AxisAlignedBox2<T>(AxisAlignedBox2<T>::vector_type::minValue, 
+                           AxisAlignedBox2<T>::vector_type::maxValue);
 
-    typedef AxisAlignedBox2<Vector2d> AxisAlignedBox2d;
-    typedef AxisAlignedBox2<Vector2f> AxisAlignedBox2f;
-    typedef AxisAlignedBox2<Vector2i> AxisAlignedBox2i;
+    typedef AxisAlignedBox2<double> AxisAlignedBox2d;
+    typedef AxisAlignedBox2<float>  AxisAlignedBox2f;
+    typedef AxisAlignedBox2<int>    AxisAlignedBox2i;
 }
 
 #endif

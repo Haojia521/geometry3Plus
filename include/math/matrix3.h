@@ -10,13 +10,13 @@
 
 namespace g3
 {
-    template<typename VecT>
+    template<typename T>
     class Matrix3
     {
     public:
-        typedef VecT                             vector_type;
-        typedef typename vector_type::value_type value_type;
-        typedef Matrix3<vector_type>             self_type;
+        typedef typename Vector3Traits<T>::vector_type vector_type;
+        typedef typename vector_type::value_type       value_type;
+        typedef Matrix3<T>                             self_type;
 
         // static values
         static const self_type identity;
@@ -205,8 +205,8 @@ namespace g3
     inline typename Matrix3<T>::vector_type operator * (const typename Matrix3<T>::vector_type &v, const Matrix3<T> &m)
     { return Matrix3<T>::vector_type(v.dot(m.column(0)), v.dot(m.column(1)), v.dot(m.column(2))); }
 
-    typedef Matrix3<Vector3d> Matrix3d;
-    typedef Matrix3<Vector3f> Matrix3f;
+    typedef Matrix3<double> Matrix3d;
+    typedef Matrix3<float>  Matrix3f;
 }
 
 #endif

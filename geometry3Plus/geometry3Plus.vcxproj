@@ -89,6 +89,7 @@
     <ClInclude Include="..\include\math\mathUtil.h" />
     <ClInclude Include="..\include\math\matrix2.h" />
     <ClInclude Include="..\include\math\matrix3.h" />
+    <ClInclude Include="..\include\math\quaternion.h" />
     <ClInclude Include="..\include\math\triangle2.h" />
     <ClInclude Include="..\include\math\triangle3.h" />
     <ClInclude Include="..\include\math\vector2d.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="..\include\math\vector3i.h" />
     <ClInclude Include="..\include\math\vector4d.h" />
     <ClInclude Include="..\include\math\vector4f.h" />
+    <ClInclude Include="..\include\math\vectorTraits.h" />
     <ClInclude Include="..\include\math\vectorTuple.h" />
   </ItemGroup>
   <ItemGroup>

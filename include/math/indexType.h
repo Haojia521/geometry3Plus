@@ -39,7 +39,7 @@ namespace g3
     class IndexTemplate
     {
     public:
-        typedef Index            value_type;
+        typedef Index            index_type;
         typedef IndexTemplate<N> self_type;
 
         // static values
@@ -49,8 +49,8 @@ namespace g3
         static const int num = N;
 
         // constructors
-        IndexTemplate() { for (int j = 0; j < N; ++j) _indices[j] = value_type::invalidValue; }
-        IndexTemplate(value_type i) { for (int j = 0; j < N; ++j) _indices[j] = i; }
+        IndexTemplate() { for (int j = 0; j < N; ++j) _indices[j] = index_type::invalidValue; }
+        IndexTemplate(index_type i) { for (int j = 0; j < N; ++j) _indices[j] = i; }
         IndexTemplate(const self_type &i) { for (int j = 0; j < N; ++j) _indices[j] = i._indices[j]; }
 
         // functions
@@ -66,9 +66,9 @@ namespace g3
         // TODO : realize funtion array()
 
         // operator functions
-        inline value_type  operator [] (int i) const
+        inline index_type  operator [] (int i) const
         { return (i >= 0 && i < num) ? _indices[i] : (i < 0) ? _indices[0] : _indices[num - 1]; }
-        inline value_type& operator [] (int i)
+        inline index_type& operator [] (int i)
         { return (i >= 0 && i < num) ? _indices[i] : (i < 0) ? _indices[0] : _indices[num - 1]; }
 
         inline self_type& operator = (const self_type &other)
@@ -84,7 +84,7 @@ namespace g3
         { return !((*this) == other); }
 
     protected:
-        value_type _indices[N];
+        index_type _indices[N];
     };
 
     template<int N, class U = typename std::enable_if<(N > 0)>::type>
@@ -102,8 +102,8 @@ namespace g3
         typedef IndexTemplate<2> base_type;
 
         Index2() : base_type() {}
-        Index2(value_type i) : base_type(i) {}
-        Index2(value_type i0, value_type i1)
+        Index2(index_type i) : base_type(i) {}
+        Index2(index_type i0, index_type i1)
         { _indices[0] = i0; _indices[1] = i1; }
     };
 
@@ -113,10 +113,10 @@ namespace g3
         typedef IndexTemplate<3> base_type;
 
         Index3() : base_type() {}
-        Index3(value_type i) : base_type(i) {}
-        Index3(value_type i0, value_type i1, value_type i2)
+        Index3(index_type i) : base_type(i) {}
+        Index3(index_type i0, index_type i1, index_type i2)
         { _indices[0] = i0; _indices[1] = i1; _indices[2] = i2; }
-        Index3(value_type i0, value_type i1, value_type i2, bool cycle)
+        Index3(index_type i0, index_type i1, index_type i2, bool cycle)
         {
             _indices[0] = i0;
             if (cycle) { _indices[1] = i2; _indices[2] = i1; }
@@ -130,8 +130,8 @@ namespace g3
         typedef IndexTemplate<4> base_type;
 
         Index4() : base_type() {}
-        Index4(value_type i) : base_type(i) {}
-        Index4(value_type i0, value_type i1, value_type i2, value_type i3)
+        Index4(index_type i) : base_type(i) {}
+        Index4(index_type i0, index_type i1, index_type i2, index_type i3)
         { _indices[0] = i0; _indices[1] = i1; _indices[2] = i2; _indices[3] = i3; }
     };
 }

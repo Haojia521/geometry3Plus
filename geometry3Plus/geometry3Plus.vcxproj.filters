@@ -76,6 +76,12 @@
     <ClInclude Include="..\include\math\matrix3.h">
       <Filter>Include\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\math\quaternion.h">
+      <Filter>Include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\vectorTraits.h">
+      <Filter>Include\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\math\vector2d.cpp">

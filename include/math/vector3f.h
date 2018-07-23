@@ -3,6 +3,7 @@
 
 #include <math/vector2f.h>
 #include <math/vector3i.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -193,6 +194,12 @@ namespace g3
 
     inline Vector3f operator / (Vector3f::value_type d, const Vector3f &v)
     { return Vector3f(d / v.x(), d / v.y(), d / v.z()); }
+
+    template<>
+    struct Vector3Traits<float>
+    {
+        typedef Vector3f vector_type;
+    };
 }
 
 #endif

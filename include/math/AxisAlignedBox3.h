@@ -8,13 +8,13 @@
 
 namespace g3
 {
-    template<typename VecT>
+    template<typename T>
     class AxisAlignedBox3
     {
     public:
-        typedef VecT                             vector_type;
-        typedef typename vector_type::value_type value_type;
-        typedef AxisAlignedBox3<vector_type>     self_type;
+        typedef typename Vector3Traits<T>::vector_type vector_type;
+        typedef typename vector_type::value_type       value_type;
+        typedef AxisAlignedBox3<T>                     self_type;
 
         // static values
         static const self_type empty;
@@ -223,9 +223,9 @@ namespace g3
     template<typename T>
     const AxisAlignedBox3<T> AxisAlignedBox3<T>::infinite = AxisAlignedBox3<T>(AxisAlignedBox3<T>::vector_type::minValue, AxisAlignedBox3<T>::vector_type::maxValue);
 
-    typedef AxisAlignedBox3<Vector3d> AxisAlignedBox3d;
-    typedef AxisAlignedBox3<Vector3f> AxisAlignedBox3f;
-    typedef AxisAlignedBox3<Vector3i> AxisAlignedBox3i;
+    typedef AxisAlignedBox3<double> AxisAlignedBox3d;
+    typedef AxisAlignedBox3<float>  AxisAlignedBox3f;
+    typedef AxisAlignedBox3<int>    AxisAlignedBox3i;
 }
 
 #endif

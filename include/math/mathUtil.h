@@ -47,6 +47,12 @@ namespace g3
         inline T clamp(T value, T low, T high)
         { return (value < low) ? low : (value > high) ? high : value; }
 
+        template<typename T>
+        inline T barycentricCoords(const T &vp, const T &v0, const T &v1, const T &v2)
+        {
+            return barycentricCoords<T, T>(vp, v0, v1, v2);
+        }
+
         template<typename T, typename U>
         inline U barycentricCoords(const T &vp, const T &v0, const T &v1, const T &v2)
         {

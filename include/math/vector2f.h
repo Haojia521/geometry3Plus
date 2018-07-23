@@ -5,6 +5,7 @@
 
 #include <math/mathUtil.h>
 #include <math/vector2i.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -165,6 +166,12 @@ namespace g3
 
     inline Vector2f operator / (Vector2f::value_type f, const Vector2f &v)
     { return Vector2f(f / v.x(), f / v.y()); }
+
+    template<>
+    struct Vector2Traits<float>
+    {
+        typedef Vector2f vector_type;
+    };
 }
 
 #endif
