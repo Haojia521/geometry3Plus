@@ -5,12 +5,15 @@
 
 #include <math/mathUtil.h>
 #include <math/matrix3.h>
+#include <math/vector4d.h>
 
 namespace g3
 {
     template<typename T>
     class Quaternion
     {
+        typedef typename Vector4Traits<value_type>::vector_type inner_data_type;
+        Quaternion(const inner_data_type &data) : _vec4(data) {}
     public:
         typedef typename Vector3Traits<T>::vector_type vector_type;
         typedef typename vector_type::value_type       value_type;
@@ -24,9 +27,9 @@ namespace g3
         // static functions
         
         // constructors
-        Quaternion() : _x(0), _y(0), _z(0), _w(1) {}
+        Quaternion() : _vec4(0, 0, 0, 1) {}
         Quaternion(value_type x, value_type y, value_type z, value_type w) : 
-            _x(x), _y(y), _z(z), _w(w) {}
+            _vec4(x, y, z, w) {}
         Quaternion(const vector_type &axis, value_type angle, bool isDeg = true) : Quaternion()
         { if (isDeg) setAxisAngleDeg(axis, angle); else setAxisAngleRad(axis, angle); }
         Quaternion(const vector_type &from, const vector_type &to) : Quaternion()
@@ -41,38 +44,27 @@ namespace g3
         // type conversion
         
         // functions
-        inline value_type  x() const { return _x; }
-        inline value_type  y() const { return _y; }
-        inline value_type  z() const { return _z; }
-        inline value_type  w() const { return _w; }
-        inline value_type& x() { return _x; }
-        inline value_type& y() { return _y; }
-        inline value_type& z() { return _z; }
-        inline value_type& w() { return _w; }
+        inline value_type  x() const { return _vec4.x(); }
+        inline value_type  y() const { return _vec4.y(); }
+        inline value_type  z() const { return _vec4.z(); }
+        inline value_type  w() const { return _vec4.w(); }
+        inline value_type& x() { return _vec4.x(); }
+        inline value_type& y() { return _vec4.y(); }
+        inline value_type& z() { return _vec4.z(); }
+        inline value_type& w() { return _vec4.w(); }
 
         inline value_type lengthSquared() const
-        { return _x * _x + _y * _y + _z * _z + _w * _w; }
+        { return _vec4.lengthSquared(); }
 
         inline value_type length() const
-        { return std::sqrt(lengthSquared()); }
+        { return _vec4.length(); }
 
         inline value_type dot(const self_type &q)
-        { return _x * q._x + _y * q._y + _z * q._z + _w * q._w; }
+        { return _vec4.dot(q._vec4); }
 
         value_type normalize(value_type epsilon = mathUtil::getZeroTolerance<value_type>())
         {
-            auto len = length();
-            if (len > epsilon)
-            {
-                auto invLen = 1 / len;
-                _x *= invLen; _y *= invLen; _z = *= invLen; _w *= invLen;
-            }
-            else
-            {
-                len = 0;
-                _x = _y = _z = _w = 0;
-            }
-            return len;
+            return _vec4.normalize(epsilon);
         }
 
         self_type normalized() const
@@ -86,10 +78,10 @@ namespace g3
         {
             auto halfAngle = 0.5f * angle;
             auto sn = std::sin(halfAngle);
-            w = std::cos(halfAngle);
-            x = sn * axis.x();
-            y = sn * axis.y();
-            z = sn * axis.z();
+            _vec4.w() = std::cos(halfAngle);
+            _vec4.x() = sn * axis.x();
+            _vec4.y() = sn * axis.y();
+            _vec4.z() = sn * axis.z();
         }
 
         inline void setAxisAngleDeg(const vector_type &axis, value_type angle)
@@ -107,28 +99,28 @@ namespace g3
 
             auto from = vFrom.normalized(), to = vTo.normalized();
             auto bisector = (from + to).normalized();
-            _w = from.dot(bisector);
-            if (std::abs(_w) > mathUtil::getZeroTolerance<value_type>())
+            _vec4.w() = from.dot(bisector);
+            if (std::abs(_vec4.w()) > mathUtil::getZeroTolerance<value_type>())
             {
                 auto cross = from.cross(bisector);
-                _x = cross.x(); _y = cross.y(); _z = cross.z();
+                _vec4.x() = cross.x(); _vec4.y() = cross.y(); _vec4.z() = cross.z();
             }
             else
             {
-                _w = 0;
+                _vec4.w() = 0;
                 if (std::abs(from.x()) >= std::abs(from.y()))
                 {
                     auto invLength = ((value_type)1) / std::sqrt(from.x() * from.x() + from.z() * from.z());
-                    _x = -from.z() * invLength;
-                    _y = 0;
-                    _z = from.x() * invLength;
+                    _vec4.x() = -from.z() * invLength;
+                    _vec4.y() = 0;
+                    _vec4.z() = from.x() * invLength;
                 }
                 else
                 {
                     auto invLength = ((value_type)1) / std::sqrt(from.y() * from.y() + from.z() * from.z());
-                    _x = 0;
-                    _y = from.z() * invLength;
-                    _z = -from.y() * invLength;
+                    _vec4.x() = 0;
+                    _vec4.y() = from.z() * invLength;
+                    _vec4.z() = -from.y() * invLength;
                 }
             }
             normalize();
@@ -145,12 +137,12 @@ namespace g3
                 auto tAngle = t * angle;
                 auto coeff0 = std::sin(angle - tAngle) * invSn;
                 auto coeff1 = std::sin(tAngle) * invSn;
-                _x = coeff0 * p.x() + coeff1 * q.x();
-                _y = coeff0 * p.y() + coeff1 * q.y();
-                _z = coeff0 * p.z() + coeff1 * q.z();
-                _w = coeff0 * p.w() + coeff1 * q.w();
+                _vec4.x() = coeff0 * p.x() + coeff1 * q.x();
+                _vec4.y() = coeff0 * p.y() + coeff1 * q.y();
+                _vec4.z() = coeff0 * p.z() + coeff1 * q.z();
+                _vec4.w() = coeff0 * p.w() + coeff1 * q.w();
             }
-            else { _x = p.x(); _y = p.y(); _z = p.z(); _w = p.w(); }
+            else { _vec4.x() = p.x(); _vec4.y() = p.y(); _vec4.z() = p.z(); _vec4.w() = p.w(); }
         }
 
         void setFromRotationMatrix(const matrix_type &m)
@@ -163,11 +155,11 @@ namespace g3
             if (std::abs(trace) > mathUtil::getZeroTolerance<value_type>())
             {
                 auto root = std::sqrt(trace + 1);
-                _w = 0.5f * root;
+                _vec4.w() = 0.5f * root;
                 root = 0.5f / root;
-                _x = (m[2][1] - m[1][2]) * root;
-                _y = (m[0][2] - m[2][0]) * root;
-                _z = (m[1][0] - m[0][1]) * root;
+                _vec4.x() = (m[2][1] - m[1][2]) * root;
+                _vec4.y() = (m[0][2] - m[2][0]) * root;
+                _vec4.z() = (m[1][0] - m[0][1]) * root;
             }
             else
             {
@@ -180,33 +172,34 @@ namespace g3
 
                 auto root = std::sqrt(m[i][i] - m[j][j] - m[k][k] + 1);
 
-                value_type quat { _x, _y, _z };
+                value_type quat { _vec4.x(), _vec4.y(), _vec4.z() };
                 quat[i] = 0.5f * root;
                 root = 0.5f / root;
-                _w = (m[k][j] - m[j][k]) * root;
+                _vec4.w() = (m[k][j] - m[j][k]) * root;
                 quat[j] = (m[j][i] - m[i][j]) * root;
                 quat[k] = (m[k][i] - m[i][k]) * root;
-                _x = quat[0]; _y = quat[1]; _z = quat[2];
+                _vec4.x() = quat[0]; _vec4.y() = quat[1]; _vec4.z() = quat[2];
             }
             normalize();
         }
 
         // operator functions
         inline value_type  operator [] (int i) const
-        { return (i == 0) ? _x : (i == 1) ? _y : (i == 2) ? _z : _w; }
+        { return _vec4[i]; }
         inline value_type& operator [] (int i)
-        { return (i == 0) ? _x : (i == 1) ? _y : (i == 2) ? _z : _w; }
+        { return _vec4[i]; }
 
         inline self_type operator - () const
-        { return self_type(-_x, -_y, -_z, -_w); }
+        { return self_type(-_vec4); }
 
-        inline self_type operator - (const self_type &q)
-        { return self_type(_x - q._x, _y - q._y, _z - q._z, _w - q._w); }
-        inline self_type operator - (value_type d)
-        { return self_type(_x - d, _y - d, ) }
+        inline self_type operator - (const self_type &q) const
+        { return self_type(_vec4 - q._vec4); }
+        inline self_type operator - (value_type d) const
+        { return self_type(_vec4 - d); }
 
     private:
-        value_type _x, _y, _z, _w;
+        //value_type _x, _y, _z, _w;
+        inner_data_type _vec4;
     };
 }
 

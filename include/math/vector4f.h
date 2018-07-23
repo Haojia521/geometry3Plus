@@ -5,6 +5,7 @@
 
 #include <g3Export.h>
 #include <math/mathUtil.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -136,6 +137,12 @@ namespace g3
 
     inline Vector4f operator / (Vector4f::value_type d, const Vector4f &v)
     { return Vector4f(d / v.x(), d / v.y(), d / v.z(), d / v.w()); }
+
+    template<>
+    struct Vector4Traits<float>
+    {
+        typedef Vector4f vector_type;
+    };
 }
 
 #endif

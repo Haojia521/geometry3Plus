@@ -2,6 +2,7 @@
 #define G3_MATH_VECTOR_4_D
 
 #include <math/vector4f.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -159,6 +160,12 @@ namespace g3
 
     inline Vector4d operator / (Vector4d::value_type d, const Vector4d &v)
     { return Vector4d(d / v.x(), d / v.y(), d / v.z(), d / v.w()); }
+
+    template<>
+    struct Vector4Traits<double>
+    {
+        typedef Vector4d vector_type;
+    };
 }
 
 #endif

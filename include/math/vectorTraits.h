@@ -8,6 +8,9 @@ namespace g3
 
     template<typename T>
     struct Vector3Traits{};
+
+    template<typename T>
+    struct Vector4Traits{};
 }
 
 #endif
