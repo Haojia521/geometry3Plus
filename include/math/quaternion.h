@@ -25,6 +25,17 @@ namespace g3
         static const self_type indentity;
 
         // static functions
+        static self_type inverse(const self_type &q)
+        { return q.inverse(); }
+        static self_type axisAngleDeg(const vector_type &axis, value_type deg)
+        { return self_type(axis, deg); }
+        static self_type axisAngleRed(const vector_type &axis, value_type rad)
+        { return self_type(axis, rad, false); }
+        static self_type formTo(const vector_type &from, const vector_type &to)
+        { return self_type(from, to); }
+        // TODO: add FromToConstrained()
+        static self_type slerp(const self_type &p, const self_type &q, value_type t)
+        { return self_type(p, q, t); }
         
         // constructors
         Quaternion() : _vec4(0, 0, 0, 1) {}
@@ -278,7 +289,7 @@ namespace g3
 
         inline self_type operator * (value_type d) const
         { return self_type(_vec4 * d); }
-        friend self_type operator * (value_typed, const self_type &q);
+        friend self_type operator * (value_type d, const self_type &q);
 
         inline vector_type operator * (const vector_type &v) const
         {
@@ -298,6 +309,20 @@ namespace g3
         //value_type _x, _y, _z, _w;
         inner_data_type _vec4;
     };
+
+    template<T>
+    const Quaternion<T> Quaternion<T>::zero = Quaternion<T>(0, 0, 0, 0);
+    
+    template<T>
+    const Quaternion<T> Quaternion<T>::indentity = Quaternion<T>();
+
+    template<T>
+    inline Quaternion<T> operator * (typename Quaternion<T>::value_type d,
+                                     const Quaternion<T> &q)
+    { return q * d; }
+
+    typedef Quaternion<double> Quaterniond;
+    typedef Quaternion<float>  Quaternionf;
 }
 
 #endif

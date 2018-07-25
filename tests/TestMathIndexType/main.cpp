@@ -57,7 +57,7 @@ void test_IndexTemplate()
     std::cout << "it3 = it2 : " << it2[0] << " , " << it2[1] << " , " << it2[2] << std::endl;
 
     Index2 i2(3);
-    Index2::value_type i;
+    Index2::index_type i;
     Index2::one;
 
     Index2 i2_1;
