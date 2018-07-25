@@ -43,11 +43,11 @@ namespace g3
             _min(center), _max(center) {}
 
         // type conversion
-        template<typename T>
-        inline operator AxisAlignedBox3<T>() const
+        template<typename U>
+        inline operator AxisAlignedBox3<U>() const
         {
-            return AxisAlignedBox3<T>(static_cast<T>(_min),
-                                      static_cast<T>(_max));
+            return AxisAlignedBox3<U>(static_cast<typename AxisAlignedBox3<U>::vector_type>(_min),
+                                      static_cast<typename AxisAlignedBox3<U>::vector_type>(_max));
         }
 
         // functions

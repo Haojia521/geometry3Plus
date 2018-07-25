@@ -18,12 +18,12 @@ namespace g3
         { _v0 = v0; _v1 = v1; _v2 = v2; }
 
         // type conversion
-        template<typename V2T, typename AV3T>
-        inline operator Triangle2<V2T, AV3T> () const
+        template<typename U>
+        inline operator Triangle2<U> () const
         {
-            return Triangle2<V2T, AV3T>(static_cast<V2T>(_v0), 
-                                        static_cast<V2T>(_v1), 
-                                        static_cast<V2T>(_v2));
+            return Triangle2<U>(static_cast<typename Triangle2<U>::vector_type>(_v0), 
+                                static_cast<typename Triangle2<U>::vector_type>(_v1),
+                                static_cast<typename Triangle2<U>::vector_type>(_v2));
         }
 
         // functions

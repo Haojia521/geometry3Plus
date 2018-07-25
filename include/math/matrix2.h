@@ -57,11 +57,11 @@ namespace g3
         }
 
         // type conversion
-        template<typename T>
-        inline operator Matrix2<T>() const
+        template<typename U>
+        inline operator Matrix2<U>() const
         {
-            return Matrix2<T>(static_cast<T>(_row0), 
-                              static_cast<T>(_row1), false);
+            return Matrix2<U>(static_cast<typename Matrix2<U>::vector_type>(_row0), 
+                              static_cast<typename Matrix2<U>::vector_type>(_row1), false);
         }
 
         // functions

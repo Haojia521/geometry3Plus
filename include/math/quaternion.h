@@ -42,7 +42,12 @@ namespace g3
         // copy constructors
         
         // type conversion
-        
+        template<typename U>
+        inline operator Quaternion<U>() const
+        {
+            return Quaternion<U>(static_cast<typename Quaternion<U>::inner_data_type>(_vec4));
+        }
+
         // functions
         inline value_type  x() const { return _vec4.x(); }
         inline value_type  y() const { return _vec4.y(); }
@@ -183,6 +188,64 @@ namespace g3
             normalize();
         }
 
+        matrix_type toRotationMatrix() const
+        {
+            auto x2 = x() * 2, y2 = y() * 2, z2 = z() * 2;
+            auto wx = w() * x2, wy = w() * y2, wz = w() * z2;
+            auto xx = x() * x2, xy = x() * y2, xz = x() * z2;
+            auto yy = y() * y2, yz = y() * z2, zz = z() * z2;
+            return matrix_type(1 - (yy + zz), xy - wz, xz + wy,
+                               xy + wz, 1 - (xx + zz), yz - wx,
+                               xz - wy, yz + wx, 1 - (xx + yy));
+        }
+
+        vector_type axisX() const
+        {
+            auto y2 = y() * 2, z2 = z() * 2;
+            auto wy = w() * y2, wz = w() * z2, xy = x() * y2;
+            auto xz = x() * z2, yy = y() * y2, zz = z() * z2;
+            return vector_type(1 - (yy + zz), xy + wz, xz - wy);
+        }
+
+        vector_type axisY() const
+        {
+            auto x2 = x() * 2, y2 = y() * 2, z2 = z() * 2;
+            auto wx = w() * x2, wz = w() * z2, xx = x() * x2;
+            auto xy = x() * y2, yz = y() * z2, zz = z() * z2;
+            return vector_type(xy - wz, 1 - (xx + zz), yz + wx);
+        }
+
+        vector_type axisZ() const
+        {
+            auto x2 = x() * 2, y2 = y() * 2, z2 = z() * 2;
+            auto wx = w() * x2, wy = w() * y2, xx = x() * x2;
+            auto xz = x() * z2, yy = y() * y2, yz = y() * z2;
+            return vector_type(xz + wy, yz - wx, 1 - (xx + yy));
+        }
+
+        self_type inverse() const
+        {
+            auto norm = lengthSquared();
+            if (norm > mathUtil::getZeroTolerance<value_type>())
+            {
+                auto invNorm = ((value_type)1.0) / norm;
+                return (conjugate() * invNorm);
+            }
+            else
+                return zero;
+        }
+
+        inline self_type conjugate() const
+        { return self_type(-x(), -y(), -z(), w()); }
+
+        inline bool epsilonEqual(const self_type &q, value_type eps) const
+        {
+            return std::abs(x() - q.x()) <= eps &&
+                   std::abs(y() - q.y()) <= eps &&
+                   std::abs(z() - q.z()) <= eps &&
+                   std::abs(w() - q.w()) <= eps;
+        }
+
         // operator functions
         inline value_type  operator [] (int i) const
         { return _vec4[i]; }
@@ -196,6 +259,40 @@ namespace g3
         { return self_type(_vec4 - q._vec4); }
         inline self_type operator - (value_type d) const
         { return self_type(_vec4 - d); }
+
+        inline self_type operator + (const self_type &q) const
+        { return self_type(_vec4 + q._vec4); }
+        inline self_type operator + (value_type d) const
+        { return self_type(_vec4 + d); }
+
+        inline self_type operator * (const self_type &q) const
+        {
+            const auto &a = _vec4;
+            const auto &b = q._vec4;
+            auto w = a.w() * b.w() - a.x() * b.x() - a.y() * b.y() - a.z() * b.z();
+            auto x = a.w() * b.x() + a.x() * b.w() + a.y() * b.z() - a.z() * b.y();
+            auto y = a.w() * b.y() + a.y() * b.w() + a.z() * b.x() - a.x() * b.z();
+            auto z = a.w() * b.z() + a.z() * b.w() + a.x() * b.y() - a.y() * b.x();
+            return self_type(x, y, z, w);
+        }
+
+        inline self_type operator * (value_type d) const
+        { return self_type(_vec4 * d); }
+        friend self_type operator * (value_typed, const self_type &q);
+
+        inline vector_type operator * (const vector_type &v) const
+        {
+            auto mat = toRotationMatrix();
+            return mat * v;
+        }
+
+        inline self_type operator / (value_type d) const
+        { return self_type(_vec4 / d); }
+
+        inline bool operator == (const self_type &q) const
+        { return _vec4 == q._vec4; }
+        inline bool operator != (const self_type &q) const
+        { return !((*this) == q); }
 
     private:
         //value_type _x, _y, _z, _w;

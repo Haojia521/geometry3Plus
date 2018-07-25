@@ -51,11 +51,11 @@ namespace g3
             _min(center), _max(center) {}
 
         // copy constructor
-        template<typename T>
-        inline operator AxisAlignedBox2<T>() const
+        template<typename U>
+        inline operator AxisAlignedBox2<U>() const
         {
-            return AxisAlignedBox2<T>(static_cast<T>(_min),
-                                      static_cast<T>(_max));
+            return AxisAlignedBox2<U>(static_cast<typename AxisAlignedBox2<U>::vector_type>(_min),
+                                      static_cast<typename AxisAlignedBox2<U>::vector_type>(_max));
         }
         
         // functions
