@@ -1,4 +1,4 @@
-#define TEST_MAT3
+#define TEST_TS2
 
 #ifdef TEST_AAB2
 #include "testAxisAlignedBox2.h"
@@ -14,6 +14,10 @@
 
 #ifdef TEST_MAT3
 #include "testMatrix3.h"
+#endif
+
+#ifdef TEST_TS2
+#include "testTransformSequence2.h"
 #endif
 
 using namespace g3test;
@@ -64,6 +68,10 @@ int main()
     std::cout << std::endl;
     std::cout << "testMatrix3_operatorFunctions" << std::endl;
     testMatrix3_operatorFunctions();
+#endif
+
+#ifdef TEST_TS2
+    testTransformSequence2_typeConversion();
 #endif
 
     system("pause");

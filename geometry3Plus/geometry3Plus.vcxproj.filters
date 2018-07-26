@@ -17,6 +17,9 @@
     <Filter Include="src\math">
       <UniqueIdentifier>{b1a0bd8f-4ac7-48f6-9093-4b98b8480f04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\curve">
+      <UniqueIdentifier>{cb699046-50b4-4368-acaa-9230bd6d3f35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\math\vector2d.h">
@@ -80,6 +83,12 @@
       <Filter>Include\math</Filter>
     </ClInclude>
     <ClInclude Include="..\include\math\vectorTraits.h">
+      <Filter>Include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\curve\ICurve.h">
+      <Filter>Include\curve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\transformSequence2.h">
       <Filter>Include\math</Filter>
     </ClInclude>
   </ItemGroup>

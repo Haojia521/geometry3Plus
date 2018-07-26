@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\curve\ICurve.h" />
     <ClInclude Include="..\include\g3Export.h" />
     <ClInclude Include="..\include\math\axisAlignedBox2.h" />
     <ClInclude Include="..\include\math\axisAlignedBox3.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="..\include\math\matrix2.h" />
     <ClInclude Include="..\include\math\matrix3.h" />
     <ClInclude Include="..\include\math\quaternion.h" />
+    <ClInclude Include="..\include\math\transformSequence2.h" />
     <ClInclude Include="..\include\math\triangle2.h" />
     <ClInclude Include="..\include\math\triangle3.h" />
     <ClInclude Include="..\include\math\vector2d.h" />
