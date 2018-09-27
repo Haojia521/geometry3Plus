@@ -5,43 +5,43 @@ namespace g3
 {
     namespace mathUtil
     {
-        const double PI      = 3.1415926535897932384626433832795;
-        const double twoPI   = 2.0 * PI;
-        const double halfPI  = 0.5 * PI;
+        constexpr double PI      = 3.1415926535897932384626433832795;
+        constexpr double twoPI   = 2.0 * PI;
+        constexpr double halfPI  = 0.5 * PI;
 
-        const double deg2rad = PI / 180.0;
-        const double rad2deg = 180 / PI;
+        constexpr double deg2rad = PI / 180.0;
+        constexpr double rad2deg = 180 / PI;
 
-        const double zeroTolerance = 1e-08;
-        const double epsilon       = 2.2204460492503131e-016;
+        constexpr double zeroTolerance = 1e-08;
+        constexpr double epsilon       = 2.2204460492503131e-016;
 
-        const double sqrtTwo    = 1.4142135623730950488016887242097;
-        const double sqrtTwoInv = 1.0 / sqrtTwo;
-        const double sqrtThree  = 1.7320508075688772935274463415059;
-
-        template<typename T>
-        inline T getPI() { return static_cast<T>(PI); }
-        template<typename T>
-        inline T getTwoPI() { return static_cast<T>(twoPI); }
-        template<typename T>
-        inline T getHalfPI() { return static_cast<T>(halfPI); }
+        constexpr double sqrtTwo    = 1.4142135623730950488016887242097;
+        constexpr double sqrtTwoInv = 1.0 / sqrtTwo;
+        constexpr double sqrtThree  = 1.7320508075688772935274463415059;
 
         template<typename T>
-        inline T getDeg2Rad() { return static_cast<T>(deg2rad); }
+        inline constexpr T getPI() { return static_cast<T>(PI); }
         template<typename T>
-        inline T getRad2Deg() { return static_cast<T>(rad2deg); }
+        inline constexpr T getTwoPI() { return static_cast<T>(twoPI); }
+        template<typename T>
+        inline constexpr T getHalfPI() { return static_cast<T>(halfPI); }
 
         template<typename T>
-        inline T getZeroTolerance() { return static_cast<T>(zeroTolerance); }
+        inline constexpr T getDeg2Rad() { return static_cast<T>(deg2rad); }
         template<typename T>
-        inline T getEpsilon() { return static_cast<T>(epsilon); }
+        inline constexpr T getRad2Deg() { return static_cast<T>(rad2deg); }
 
         template<typename T>
-        inline T getSqrtTwo() { return static_cast<T>(sqrtTwo); }
+        inline constexpr T getZeroTolerance() { return static_cast<T>(zeroTolerance); }
         template<typename T>
-        inline T getSqrtTwoInv() { return static_cast<T>(sqrtTwoInv); }
+        inline constexpr T getEpsilon() { return static_cast<T>(epsilon); }
+
         template<typename T>
-        inline T getSqrtThree() { return static_cast<T>(sqrtThree); }
+        inline constexpr T getSqrtTwo() { return static_cast<T>(sqrtTwo); }
+        template<typename T>
+        inline constexpr T getSqrtTwoInv() { return static_cast<T>(sqrtTwoInv); }
+        template<typename T>
+        inline constexpr T getSqrtThree() { return static_cast<T>(sqrtThree); }
 
         template<typename T>
         inline T clamp(T value, T low, T high)

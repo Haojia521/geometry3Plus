@@ -6,7 +6,7 @@
 #include <functional>
 
 #include <math/mathUtil.h>
-#include <math/vector3d.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -80,7 +80,7 @@ namespace g3
 
         // type conversion
         template<typename U>
-        inline operator Matrix3<U>() const
+        operator Matrix3<U>() const
         {
             return Matrix3<U>(static_cast<typename Matrix3<U>::vector_type>(_row0),
                               static_cast<typename Matrix3<U>::vector_type>(_row1),
@@ -88,24 +88,24 @@ namespace g3
         }
 
         // functions
-        inline vector_type row(int i) const
+        vector_type row(int i) const
         { return (i == 0) ? _row0 : (i == 1) ? _row1 : _row2; }
 
-        inline vector_type column(int i) const
+        vector_type column(int i) const
         {
             return (i == 0) ? vector_type(_row0[0], _row1[0], _row2[0]) : 
                    (i == 1) ? vector_type(_row0[1], _row1[1], _row2[1]) : 
                               vector_type(_row0[2], _row1[2], _row2[2]);
         }
 
-        inline void toBuffer(value_type buffer[]) const // no check of out-of-range exception
+        void toBuffer(value_type buffer[]) const // no check of out-of-range exception
         {
             buffer[0] = _row0[0]; buffer[1] = _row0[1]; buffer[2] = _row0[2];
             buffer[3] = _row1[0]; buffer[4] = _row1[1]; buffer[5] = _row1[2];
             buffer[6] = _row2[0]; buffer[7] = _row2[1]; buffer[8] = _row2[2];
         }
 
-        inline value_type determinant() const
+        value_type determinant() const
         {
             auto x0 = _row2[2] * _row1[1] - _row2[1] * _row1[2];
             auto x1 = -(_row2[2] * _row0[1] - _row2[1] * _row0[2]);
@@ -113,7 +113,7 @@ namespace g3
             return (_row0[0] * x0 + _row1[0] * x1 + _row2[0] * x2);
         }
 
-        inline self_type inverse(value_type epsilon = mathUtil::getEpsilon<value_type>()) const
+        self_type inverse(value_type epsilon = mathUtil::getEpsilon<value_type>()) const
         {
             auto det = determinant();
             if (std::abs(det) > epsilon)
@@ -138,10 +138,10 @@ namespace g3
                 return zero;
         }
 
-        inline self_type transpose() const
+        self_type transpose() const
         { return self_type(_row0, _row1, _row2, true); }
 
-        inline bool epsilonEqual(const self_type &m, value_type epsilon) const
+        bool epsilonEqual(const self_type &m, value_type epsilon) const
         {
             return _row0.epsilonEqual(m._row0, epsilon) && 
                    _row1.epsilonEqual(m._row1, epsilon) && 
@@ -149,24 +149,24 @@ namespace g3
         }
 
         // operator functions
-        inline vector_type& operator [] (int r)
+        vector_type& operator [] (int r)
         { return (r == 0) ? _row0 : (r == 1) ? _row1 : _row2; }
-        inline vector_type  operator [] (int r) const
+        vector_type  operator [] (int r) const
         { return (r == 0) ? _row0 : (r == 1) ? _row1 : _row2; }
 
-        inline self_type operator - () const
+        self_type operator - () const
         { return self_type(-_row0, -_row1, -_row2, false); }
-        inline self_type operator - (const self_type &m) const
+        self_type operator - (const self_type &m) const
         { return self_type(_row0 - m._row0, _row1 - m._row1, _row2 - m._row2, false); }
-        inline self_type operator - (value_type n) const
+        self_type operator - (value_type n) const
         { return self_type(_row0 - n, _row1 - n, _row2 - n, false); }
 
-        inline self_type operator + (const self_type &m) const
+        self_type operator + (const self_type &m) const
         { return self_type(_row0 + m._row0, _row1 + m._row1, _row2 + m._row2, false); }
-        inline self_type operator + (value_type n) const
+        self_type operator + (value_type n) const
         { return self_type(_row0 + n, _row1 + n, _row2 + n, false); }
 
-        inline self_type operator * (const self_type &m) const
+        self_type operator * (const self_type &m) const
         {
             auto mCol0 = m.column(0), mCol1 = m.column(1), mCol2 = m.column(2);
             auto m00 = _row0.dot(mCol0), m01 = _row0.dot(mCol1), m02 = _row0.dot(mCol2);
@@ -174,15 +174,15 @@ namespace g3
             auto m20 = _row2.dot(mCol0), m21 = _row2.dot(mCol1), m22 = _row2.dot(mCol2);
             return self_type(m00, m01, m02, m10, m11, m12, m20, m21, m22);
         }
-        inline self_type operator * (value_type n) const
+        self_type operator * (value_type n) const
         { return self_type(_row0 * n, _row1 * n, _row2 * n, false); }
         template<typename T>
         friend Matrix3<T> operator * (typename Matrix3<T>::value_type n, const Matrix3<T> &m);
 
-        inline self_type operator / (value_type n) const
+        self_type operator / (value_type n) const
         { return self_type(_row0 / n, _row1 / n, _row2 / n, false); }
 
-        inline vector_type operator * (const vector_type &v) const
+        vector_type operator * (const vector_type &v) const
         { return vector_type(_row0.dot(v), _row1.dot(v), _row2.dot(v)); }
         template<typename T>
         friend typename Matrix3<T>::vector_type operator * (const typename Matrix3<T>::vector_type &v, const Matrix3<T> &m);
@@ -198,11 +198,11 @@ namespace g3
     const Matrix3<T> Matrix3<T>::zero = Matrix3<T>();
 
     template<typename T>
-    inline Matrix3<T> operator * (typename Matrix3<T>::value_type n, const Matrix3<T> &m)
+    Matrix3<T> operator * (typename Matrix3<T>::value_type n, const Matrix3<T> &m)
     { return Matrix3<T>(m._row0 * n, m._row1 * n, m._row2 * n, false); }
 
     template<typename T>
-    inline typename Matrix3<T>::vector_type operator * (const typename Matrix3<T>::vector_type &v, const Matrix3<T> &m)
+    typename Matrix3<T>::vector_type operator * (const typename Matrix3<T>::vector_type &v, const Matrix3<T> &m)
     { return Matrix3<T>::vector_type(v.dot(m.column(0)), v.dot(m.column(1)), v.dot(m.column(2))); }
 
     typedef Matrix3<double> Matrix3d;

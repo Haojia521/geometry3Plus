@@ -4,7 +4,7 @@
 #include <cmath>
 
 #include <math/mathUtil.h>
-#include <math/vector2d.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -58,45 +58,45 @@ namespace g3
 
         // type conversion
         template<typename U>
-        inline operator Matrix2<U>() const
+        operator Matrix2<U>() const
         {
             return Matrix2<U>(static_cast<typename Matrix2<U>::vector_type>(_row0), 
                               static_cast<typename Matrix2<U>::vector_type>(_row1), false);
         }
 
         // functions
-        inline void setToRow(const vector_type &u, const vector_type &v)
+        void setToRow(const vector_type &u, const vector_type &v)
         { _row0 = u; _row1 = v; }
 
-        inline void setToRow(value_type m00, value_type m01, value_type m10, value_type m11)
+        void setToRow(value_type m00, value_type m01, value_type m10, value_type m11)
         { _row0[0] = m00; _row0[1] = m01; _row1[0] = m10; _row1[1] = m11; }
 
-        inline void setToColumn(const vector_type &u, const vector_type &v)
+        void setToColumn(const vector_type &u, const vector_type &v)
         { _row0[0] = u[0]; _row0[1] = v[0]; _row1[0] = u[1]; _row1[1] = v[1]; }
 
-        inline void setToColumn(value_type m00, value_type m10, value_type m01, value_type m11)
+        void setToColumn(value_type m00, value_type m10, value_type m01, value_type m11)
         { _row0[0] = m00; _row0[1] = m01; _row1[0] = m10; _row1[1] = m11; }
 
-        inline void setToDiagonal(value_type m00, value_type m11)
+        void setToDiagonal(value_type m00, value_type m11)
         { _row0[0] = m00; _row1[1] = m11; _row0[1] = _row1[0] = 0; }
 
-        inline void setToRotationRad(value_type angle)
+        void setToRotationRad(value_type angle)
         {
             _row0[0] = _row1[1] = std::cos(angle);
             _row1[0] = std::sin(angle);
             _row0[1] = -_row1[0];
         }
 
-        inline void setToRotationDeg(value_type anlge)
+        void setToRotationDeg(value_type anlge)
         { setToRotationRad(anlge * mathUtil::getRad2Deg<value_type>()); }
 
-        inline value_type qForm(const vector_type &u, const vector_type &v) const
+        value_type qForm(const vector_type &u, const vector_type &v) const
         { return u.dot((*this) * v); }
 
-        inline self_type transpose() const
+        self_type transpose() const
         { return self_type(_row0, _row1, true); }
 
-        inline self_type inverse(value_type epsilon = mathUtil::getEpsilon<value_type>()) const
+        self_type inverse(value_type epsilon = mathUtil::getEpsilon<value_type>()) const
         {
             auto det = determinant();
             if (std::abs(det) > epsilon)
@@ -108,20 +108,20 @@ namespace g3
                 return zero;
         }
 
-        inline self_type adjoint() const
+        self_type adjoint() const
         { return self_type(_row1[1], -_row0[1], -_row1[0], _row0[0]); }
 
-        inline value_type determinant() const
+        value_type determinant() const
         { return _row0[0] * _row1[1] - _row0[1] * _row1[0]; }
 
         // precondition: this matrix represents a rotation
-        inline value_type extractAngle() const
+        value_type extractAngle() const
         { return std::atan2(_row1[0], _row0[0]); }
 
-        inline vector_type row(int i) const
+        vector_type row(int i) const
         { return (i == 0) ? _row0 : _row1; }
 
-        inline vector_type column(int i) const
+        vector_type column(int i) const
         { return (i == 0) ? vector_type(_row0[0], _row1[0]) : vector_type(_row0[1], _row1[1]); }
 
         // Algorithm uses Gram-Schmidt orthogonalization.  If 'this' matrix is
@@ -178,32 +178,32 @@ namespace g3
         }
 
         // operator functions
-        inline vector_type& operator [] (int r)
+        vector_type& operator [] (int r)
         { return (r == 0) ? _row0 : _row1; }
-        inline vector_type  operator [] (int r) const
+        vector_type  operator [] (int r) const
         { return (r == 0) ? _row0 : _row1; }
 
-        inline self_type operator - () const
+        self_type operator - () const
         { return self_type(-_row0, -_row1, false); }
-        inline self_type operator - (const self_type &m) const
+        self_type operator - (const self_type &m) const
         { return self_type(_row0 - m._row0, _row1 - m._row1, false); }
-        inline self_type operator - (value_type n) const
+        self_type operator - (value_type n) const
         { return self_type(_row0 - n, _row1 - n, false); }
 
-        inline self_type operator + (const self_type &m) const
+        self_type operator + (const self_type &m) const
         { return self_type(_row0 + m._row0, _row1 + m._row1, false); }
-        inline self_type operator + (value_type n) const
+        self_type operator + (value_type n) const
         { return self_type(_row0 + n, _row1 + n, false); }
 
-        inline self_type operator * (value_type n) const
+        self_type operator * (value_type n) const
         { return self_type(_row0 * n, _row1 * n, false); }
         template<typename T>
         friend Matrix2<T> operator * (typename Matrix2<T>::value_type n, const Matrix2<T> &m);
 
-        inline self_type operator / (value_type n) const
+        self_type operator / (value_type n) const
         { return self_type(_row0 / n, _row1 / n, false); }
 
-        inline vector_type operator * (const vector_type &v) const
+        vector_type operator * (const vector_type &v) const
         { return vector_type(_row0.dot(v), _row1.dot(v)); }
         template<typename T>
         friend typename Matrix2<T>::vector_type operator * (const typename Matrix2<T>::vector_type &v, const Matrix2<T> &m);
@@ -222,11 +222,11 @@ namespace g3
     const Matrix2<T> Matrix2<T>::one = Matrix2<T>(1, 1, 1, 1);
 
     template<typename T>
-    inline Matrix2<T> operator * (typename Matrix2<T>::value_type n, const Matrix2<T> &m)
+    Matrix2<T> operator * (typename Matrix2<T>::value_type n, const Matrix2<T> &m)
     { return Matrix2<T>(m._row0 * n, m._row1 * n, false); }
 
     template<typename T>
-    inline typename Matrix2<T>::vector_type operator * (const typename Matrix2<T>::vector_type &v, const Matrix2<T> &m)
+    typename Matrix2<T>::vector_type operator * (const typename Matrix2<T>::vector_type &v, const Matrix2<T> &m)
     { return Matrix2<T>::vector_type(v.dot(m.column(0)), v.dot(m.column(1))); }
 
     typedef Matrix2<double> Matrix2d;

@@ -3,11 +3,10 @@
 
 #include <math/vector2f.h>
 #include <math/vector3i.h>
-#include <math/vectorTraits.h>
 
 namespace g3
 {
-    class G3Export Vector3f
+    class Vector3f
     {
     public:
         typedef float    value_type;
@@ -26,17 +25,17 @@ namespace g3
         static const self_type invalid;
 
         // static functions
-        static inline value_type dot(const self_type &v1, const self_type &v2)
+        static value_type dot(const self_type &v1, const self_type &v2)
         { return v1.dot(v2); }
-        static inline self_type cross(const self_type &v1, const self_type &v2)
+        static self_type cross(const self_type &v1, const self_type &v2)
         { return v1.cross(v2); }
 
-        static inline value_type angleD(const self_type &v1, const self_type &v2)
+        static value_type angleD(const self_type &v1, const self_type &v2)
         { return v1.angleD(v2); }
-        static inline value_type angleR(const self_type &v1, const self_type &v2)
+        static value_type angleR(const self_type &v1, const self_type &v2)
         { return v1.angleR(v2); }
 
-        static inline self_type lerp(const self_type &a, const self_type &b, value_type t)
+        static self_type lerp(const self_type &a, const self_type &b, value_type t)
         {
             auto s = 1.f - t;
             return self_type(s * a.x() + t * b.x(), 
@@ -62,144 +61,182 @@ namespace g3
         }
 
         // functions
-        inline value_type& x() { return _x; }
-        inline value_type& y() { return _y; }
-        inline value_type& z() { return _z; }
-        inline value_type  x() const { return _x; }
-        inline value_type  y() const { return _y; }
-        inline value_type  z() const { return _z; }
+        value_type& x() { return _x; }
+        value_type& y() { return _y; }
+        value_type& z() { return _z; }
+        value_type  x() const { return _x; }
+        value_type  y() const { return _y; }
+        value_type  z() const { return _z; }
 
-        inline assoc_2d_type xy() const { return assoc_2d_type(_x, _y); }
-        inline void xy(const assoc_2d_type &v) { _x = v.x(); _y = v.y(); }
+        assoc_2d_type xy() const { return assoc_2d_type(_x, _y); }
+        void xy(const assoc_2d_type &v) { _x = v.x(); _y = v.y(); }
 
-        inline assoc_2d_type xz() const { return assoc_2d_type(_x, _z); }
-        inline void xz(const assoc_2d_type &v) { _x = v.x(); _z = v.y(); }
+        assoc_2d_type xz() const { return assoc_2d_type(_x, _z); }
+        void xz(const assoc_2d_type &v) { _x = v.x(); _z = v.y(); }
 
-        inline assoc_2d_type yz() const { return assoc_2d_type(_y, _z); }
-        inline void yz(const assoc_2d_type &v) { _y = v.x(), _z = v.y(); }
+        assoc_2d_type yz() const { return assoc_2d_type(_y, _z); }
+        void yz(const assoc_2d_type &v) { _y = v.x(), _z = v.y(); }
 
-        inline value_type lengthSquared() const { return _x * _x + _y * _y + _z * _z; }
-        inline value_type length() const { return std::sqrt(_x * _x + _y * _y + _z * _z); }
-        inline value_type lengthL1() const { return std::abs(_x) + std::abs(_y) + std::abs(_z); }
+        value_type lengthSquared() const { return _x * _x + _y * _y + _z * _z; }
+        value_type length() const { return std::sqrt(_x * _x + _y * _y + _z * _z); }
+        value_type lengthL1() const { return std::abs(_x) + std::abs(_y) + std::abs(_z); }
 
-        inline value_type max() const { return std::fmax(_x, std::fmax(_y, _z)); }
-        inline value_type min() const { return std::fmin(_x, std::fmin(_y, _z)); }
+        value_type max() const { return std::fmax(_x, std::fmax(_y, _z)); }
+        value_type min() const { return std::fmin(_x, std::fmin(_y, _z)); }
 
-        inline value_type maxAbs() const 
+        value_type maxAbs() const 
         { return std::fmax(std::abs(_x), std::fmax(std::abs(_y), std::abs(_z))); }
-        inline value_type minAbs() const 
+        value_type minAbs() const 
         { return std::fmin(std::abs(_x), std::fmin(std::abs(_y), std::abs(_z))); }
 
-        inline self_type abs() const
+        self_type abs() const
         { return self_type(std::abs(_x), std::abs(_y), std::abs(_z)); }
 
         value_type normalize(value_type epsilon = mathUtil::getEpsilon<value_type>());
         self_type normalized() const;
 
-        inline bool isNormalized() const
+        bool isNormalized() const
         { return std::abs((_x * _x + _y * _y + _z * _z) - 1.f) < mathUtil::getZeroTolerance<value_type>(); }
 
         // TODO: realize function 'vector3f::round()'
-        inline void round(int decimals)
+        void round(int decimals)
         { }
 
-        inline value_type dot(const self_type &v) const
+        value_type dot(const self_type &v) const
         { return _x * v._x + _y * v._y + _z * v._z; }
 
-        inline self_type cross(const self_type &v) const
+        self_type cross(const self_type &v) const
         { return self_type(_y * v._z - _z * v._y, _z * v._x - _x * v._z, _x * v._y - _y * v._x); }
 
-        inline self_type unitCross(const self_type &v) const
+        self_type unitCross(const self_type &v) const
         { return cross(v).normalize(); }
 
-        inline value_type angleD(const self_type &v) const
+        value_type angleD(const self_type &v) const
         {
             auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return std::acos(fDot) * mathUtil::getRad2Deg<value_type>();
         }
 
-        inline value_type angleR(const self_type &v) const
+        value_type angleR(const self_type &v) const
         {
             auto fDot = mathUtil::clamp(dot(v), -1.f, 1.f);
             return std::acos(fDot);
         }
 
-        inline value_type distanceSquared(const self_type &v) const
+        value_type distanceSquared(const self_type &v) const
         {
             auto dx = _x - v._x, dy = _y - v._y, dz = _z - v._z;
             return dx * dx + dy * dy + dz * dz;
         }
 
-        inline value_type distance(const self_type &v) const
+        value_type distance(const self_type &v) const
         { return std::sqrt(distanceSquared(v)); }
 
-        inline void set(const self_type &v) { _x = v._x; _y = v._y; _z = v._z; }
-        inline void set(value_type x, value_type y, value_type z) { _x = x; _y = y; _z = z; }
+        void set(const self_type &v) { _x = v._x; _y = v._y; _z = v._z; }
+        void set(value_type x, value_type y, value_type z) { _x = x; _y = y; _z = z; }
 
-        inline void add(const self_type &v) { _x += v._x; _y += v._y; _z += v._z; }
-        inline void subtract(const self_type &v) { _x -= v._x; _y -= v._y; _z -= v._z; }
+        void add(const self_type &v) { _x += v._x; _y += v._y; _z += v._z; }
+        void subtract(const self_type &v) { _x -= v._x; _y -= v._y; _z -= v._z; }
 
-        inline bool equals(const self_type &v) const
+        bool equals(const self_type &v) const
         { return (*this) == v; }
-        inline bool epsilonEqual(const self_type &v, value_type eps) const
+        bool epsilonEqual(const self_type &v, value_type eps) const
         { return std::abs(_x - v._x) <= eps && std::abs(_y - v._y) <= eps && std::abs(_z - v._z) <= eps; }
 
         // operator functions
-        inline value_type& operator [] (int i) 
+        value_type& operator [] (int i) 
         { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
-        inline value_type  operator [] (int i) const 
+        value_type  operator [] (int i) const 
         { if (i == 0) return _x; else if (i == 1) return _y; else return _z; }
 
-        inline self_type operator - () const { return self_type(-_x, -_y, -_z); }
+        self_type operator - () const { return self_type(-_x, -_y, -_z); }
 
-        inline self_type operator - (const self_type &v) const
+        self_type operator - (const self_type &v) const
         { return self_type(_x - v._x, _y - v._y, _z - v._z); }
-        inline self_type operator - (value_type d) const
+        self_type operator - (value_type d) const
         { return self_type(_x - d, _y - d, _z - d); }
 
-        inline self_type operator + (const self_type &v) const
+        self_type operator + (const self_type &v) const
         { return self_type(_x + v._x, _y + v._y, _z + v._z); }
-        inline self_type operator + (value_type d) const
+        self_type operator + (value_type d) const
         { return self_type(_x + d, _y + d, _z + d); }
         friend self_type operator + (value_type d, const self_type &v);
 
-        inline self_type operator * (const self_type &v) const
+        self_type operator * (const self_type &v) const
         { return self_type(_x * v._x, _y * v._y, _z * v._z); }
 
-        inline self_type operator * (value_type d) const
+        self_type operator * (value_type d) const
         { return self_type(_x * d, _y * d, _z * d); }
         friend self_type operator * (value_type d, const self_type &v);
 
-        inline self_type operator / (const self_type &v) const
+        self_type operator / (const self_type &v) const
         { return self_type(_x / v._x, _y / v._y, _z / v._z); }
 
-        inline self_type operator / (value_type d) const
+        self_type operator / (value_type d) const
         { return self_type(_x / d, _y / d, _z / d); }
         friend self_type operator / (value_type d, const self_type &v);
 
-        inline bool operator == (const self_type &v) const
+        bool operator == (const self_type &v) const
         { return _x == v._x && _y == v._y && _z == v._z; }
-        inline bool operator != (const self_type &v) const
+        bool operator != (const self_type &v) const
         { return !((*this) == v); }
 
     private:
         value_type _x, _y, _z;
     };
 
-    inline Vector3f operator + (Vector3f::value_type d, const Vector3f &v)
+    const Vector3f Vector3f::zero = Vector3f();
+    const Vector3f Vector3f::one = Vector3f(1.f, 1.f, 1.f);
+    const Vector3f Vector3f::oneNormalized = Vector3f::one.normalized();
+    const Vector3f Vector3f::axisX = Vector3f(1.f, 0.f, 0.f);
+    const Vector3f Vector3f::axisY = Vector3f(0.f, 1.f, 0.f);
+    const Vector3f Vector3f::axisZ = Vector3f(0.f, 0.f, 1.f);
+    const Vector3f Vector3f::maxValue = Vector3f(std::numeric_limits<Vector3f::value_type>::max(),
+                                                 std::numeric_limits<Vector3f::value_type>::max(),
+                                                 std::numeric_limits<Vector3f::value_type>::max());
+    const Vector3f Vector3f::minValue = Vector3f(std::numeric_limits<Vector3f::value_type>::min(),
+                                                 std::numeric_limits<Vector3f::value_type>::min(),
+                                                 std::numeric_limits<Vector3f::value_type>::min());
+    const Vector3f Vector3f::invalid = Vector3f::maxValue;
+
+    Vector3f::value_type Vector3f::normalize(value_type epsilon /* = mathUtil::epsilonf */)
+    {
+        auto len = length();
+        if (len > epsilon)
+        {
+            auto invLen = 1.f / len;
+            _x *= invLen;
+            _y *= invLen;
+            _z *= invLen;
+        }
+        else
+        {
+            len = 0.f;
+            _x = _y = _z = 0.f;
+        }
+
+        return len;
+    }
+
+    Vector3f::self_type Vector3f::normalized() const
+    {
+        auto len = length();
+        if (len > mathUtil::getEpsilon<value_type>())
+        {
+            auto invLen = 1.f / len;
+            return Vector3f(_x * invLen, _y * invLen, _z * invLen);
+        }
+        else return Vector3f::zero;
+    }
+
+    Vector3f operator + (Vector3f::value_type d, const Vector3f &v)
     { return v + d; }
 
-    inline Vector3f operator * (Vector3f::value_type d, const Vector3f &v)
+    Vector3f operator * (Vector3f::value_type d, const Vector3f &v)
     { return v * d; }
 
-    inline Vector3f operator / (Vector3f::value_type d, const Vector3f &v)
+    Vector3f operator / (Vector3f::value_type d, const Vector3f &v)
     { return Vector3f(d / v.x(), d / v.y(), d / v.z()); }
-
-    template<>
-    struct Vector3Traits<float>
-    {
-        typedef Vector3f vector_type;
-    };
 }
 
 #endif

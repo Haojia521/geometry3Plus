@@ -5,14 +5,14 @@
 
 #include <math/mathUtil.h>
 #include <math/matrix3.h>
-#include <math/vector4d.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
     template<typename T>
     class Quaternion
     {
-        typedef typename Vector4Traits<value_type>::vector_type inner_data_type;
+        typedef typename Vector4Traits<T>::vector_type inner_data_type;
         Quaternion(const inner_data_type &data) : _vec4(data) {}
     public:
         typedef typename Vector3Traits<T>::vector_type vector_type;
@@ -54,28 +54,28 @@ namespace g3
         
         // type conversion
         template<typename U>
-        inline operator Quaternion<U>() const
+        operator Quaternion<U>() const
         {
             return Quaternion<U>(static_cast<typename Quaternion<U>::inner_data_type>(_vec4));
         }
 
         // functions
-        inline value_type  x() const { return _vec4.x(); }
-        inline value_type  y() const { return _vec4.y(); }
-        inline value_type  z() const { return _vec4.z(); }
-        inline value_type  w() const { return _vec4.w(); }
-        inline value_type& x() { return _vec4.x(); }
-        inline value_type& y() { return _vec4.y(); }
-        inline value_type& z() { return _vec4.z(); }
-        inline value_type& w() { return _vec4.w(); }
+        value_type  x() const { return _vec4.x(); }
+        value_type  y() const { return _vec4.y(); }
+        value_type  z() const { return _vec4.z(); }
+        value_type  w() const { return _vec4.w(); }
+        value_type& x() { return _vec4.x(); }
+        value_type& y() { return _vec4.y(); }
+        value_type& z() { return _vec4.z(); }
+        value_type& w() { return _vec4.w(); }
 
-        inline value_type lengthSquared() const
+        value_type lengthSquared() const
         { return _vec4.lengthSquared(); }
 
-        inline value_type length() const
+        value_type length() const
         { return _vec4.length(); }
 
-        inline value_type dot(const self_type &q)
+        value_type dot(const self_type &q)
         { return _vec4.dot(q._vec4); }
 
         value_type normalize(value_type epsilon = mathUtil::getZeroTolerance<value_type>())
@@ -90,7 +90,7 @@ namespace g3
             return q;
         }
 
-        inline void setAxisAngleRad(const vector_type &axis, value_type angle)
+        void setAxisAngleRad(const vector_type &axis, value_type angle)
         {
             auto halfAngle = 0.5f * angle;
             auto sn = std::sin(halfAngle);
@@ -100,7 +100,7 @@ namespace g3
             _vec4.z() = sn * axis.z();
         }
 
-        inline void setAxisAngleDeg(const vector_type &axis, value_type angle)
+        void setAxisAngleDeg(const vector_type &axis, value_type angle)
         { setAxisAngleRad(axis, angle * mathUtil::getDeg2Rad<value_type>()); }
 
         // this function can take non-normalized vectors vFrom and vTo (normalizes internally)
@@ -246,10 +246,10 @@ namespace g3
                 return zero;
         }
 
-        inline self_type conjugate() const
+        self_type conjugate() const
         { return self_type(-x(), -y(), -z(), w()); }
 
-        inline bool epsilonEqual(const self_type &q, value_type eps) const
+        bool epsilonEqual(const self_type &q, value_type eps) const
         {
             return std::abs(x() - q.x()) <= eps &&
                    std::abs(y() - q.y()) <= eps &&
@@ -258,25 +258,25 @@ namespace g3
         }
 
         // operator functions
-        inline value_type  operator [] (int i) const
+        value_type  operator [] (int i) const
         { return _vec4[i]; }
-        inline value_type& operator [] (int i)
+        value_type& operator [] (int i)
         { return _vec4[i]; }
 
-        inline self_type operator - () const
+        self_type operator - () const
         { return self_type(-_vec4); }
 
-        inline self_type operator - (const self_type &q) const
+        self_type operator - (const self_type &q) const
         { return self_type(_vec4 - q._vec4); }
-        inline self_type operator - (value_type d) const
+        self_type operator - (value_type d) const
         { return self_type(_vec4 - d); }
 
-        inline self_type operator + (const self_type &q) const
+        self_type operator + (const self_type &q) const
         { return self_type(_vec4 + q._vec4); }
-        inline self_type operator + (value_type d) const
+        self_type operator + (value_type d) const
         { return self_type(_vec4 + d); }
 
-        inline self_type operator * (const self_type &q) const
+        self_type operator * (const self_type &q) const
         {
             const auto &a = _vec4;
             const auto &b = q._vec4;
@@ -287,22 +287,22 @@ namespace g3
             return self_type(x, y, z, w);
         }
 
-        inline self_type operator * (value_type d) const
+        self_type operator * (value_type d) const
         { return self_type(_vec4 * d); }
         friend self_type operator * (value_type d, const self_type &q);
 
-        inline vector_type operator * (const vector_type &v) const
+        vector_type operator * (const vector_type &v) const
         {
             auto mat = toRotationMatrix();
             return mat * v;
         }
 
-        inline self_type operator / (value_type d) const
+        self_type operator / (value_type d) const
         { return self_type(_vec4 / d); }
 
-        inline bool operator == (const self_type &q) const
+        bool operator == (const self_type &q) const
         { return _vec4 == q._vec4; }
-        inline bool operator != (const self_type &q) const
+        bool operator != (const self_type &q) const
         { return !((*this) == q); }
 
     private:
@@ -310,15 +310,15 @@ namespace g3
         inner_data_type _vec4;
     };
 
-    template<T>
+    template<typename T>
     const Quaternion<T> Quaternion<T>::zero = Quaternion<T>(0, 0, 0, 0);
     
-    template<T>
+    template<typename T>
     const Quaternion<T> Quaternion<T>::indentity = Quaternion<T>();
 
-    template<T>
-    inline Quaternion<T> operator * (typename Quaternion<T>::value_type d,
-                                     const Quaternion<T> &q)
+    template<typename T>
+    Quaternion<T> operator * (typename Quaternion<T>::value_type d,
+                              const Quaternion<T> &q)
     { return q * d; }
 
     typedef Quaternion<double> Quaterniond;

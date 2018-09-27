@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <algorithm>
 
-#include <math/vector3d.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -44,35 +44,35 @@ namespace g3
 
         // type conversion
         template<typename U>
-        inline operator AxisAlignedBox3<U>() const
+        operator AxisAlignedBox3<U>() const
         {
             return AxisAlignedBox3<U>(static_cast<typename AxisAlignedBox3<U>::vector_type>(_min),
                                       static_cast<typename AxisAlignedBox3<U>::vector_type>(_max));
         }
 
         // functions
-        inline vector_type minCoordinate() const { return _min; }
-        inline vector_type maxCoordinate() const { return _max; }
+        vector_type minCoordinate() const { return _min; }
+        vector_type maxCoordinate() const { return _max; }
 
-        inline bool valid() const { return (_max.x() >= _min.x() && 
+        bool valid() const { return (_max.x() >= _min.x() && 
                                             _max.y() >= _min.y() && 
                                             _max.z() >= _min.z()); }
 
-        inline value_type width() const { if (valid()) return _max.x() - _min.x(); else return 0; }
-        inline value_type height() const { if (valid()) return _max.y() - _min.y(); else return 0; }
-        inline value_type depth() const { if (valid()) return _max.z() - _min.z(); else return 0; }
+        value_type width() const { if (valid()) return _max.x() - _min.x(); else return 0; }
+        value_type height() const { if (valid()) return _max.y() - _min.y(); else return 0; }
+        value_type depth() const { if (valid()) return _max.z() - _min.z(); else return 0; }
 
-        inline value_type volume() const { return width() * height() * depth(); }
+        value_type volume() const { return width() * height() * depth(); }
 
-        inline value_type diagonalLength() const
+        value_type diagonalLength() const
         { return std::sqrt(width() * width() + height() * height() + depth() * depth()); }
 
-        inline value_type maxDim() const { return std::max(width(), std::max(height(), depth())); }
-        inline value_type minDim() const { return std::min(width(), std::min(height(), depth())); }
+        value_type maxDim() const { return std::max(width(), std::max(height(), depth())); }
+        value_type minDim() const { return std::min(width(), std::min(height(), depth())); }
 
-        inline vector_type diagonal() const { if (valid()) return (_max - _min); else return vector_type(); }
-        inline vector_type center() const { if (valid()) return (_max + _min) * 0.5f; else return vector_type(); }
-        inline vector_type extents() const { if (valid()) return (_max - _min) * 0.5f; else return vector_type(); }
+        vector_type diagonal() const { if (valid()) return (_max - _min); else return vector_type(); }
+        vector_type center() const { if (valid()) return (_max + _min) * 0.5f; else return vector_type(); }
+        vector_type extents() const { if (valid()) return (_max - _min) * 0.5f; else return vector_type(); }
 
         // See Box3.Corner for details on which corner is which
         //        7_________6(max)
@@ -91,14 +91,14 @@ namespace g3
         }
 
         //! value is subtracted from min and added to max
-        inline void expand(value_type radius)
+        void expand(value_type radius)
         {
             _min.x() -= radius; _min.y() -= radius; _min.z() -= radius;
             _max.x() += radius; _max.y() += radius; _max.z() += radius;
         }
 
         //! value is added to min and subtracted from max
-        inline void contract(value_type radius) {
+        void contract(value_type radius) {
             _min.x() += radius; _min.y() += radius; _min.z() += radius;
             _max.x() -= radius; _max.y() -= radius; _max.z() -= radius;
         }
@@ -157,18 +157,18 @@ namespace g3
             else return self_type::empty;
         }
 
-        inline bool contains(const vector_type &v) const
+        bool contains(const vector_type &v) const
         {
             return (_min.x() <= v.x()) && (_min.y() <= v.y()) && (_min.z() <= v.z()) &&
                    (_max.x() >= v.x()) && (_max.y() >= v.y()) && (_max.z() >= v.z());
         }
 
-        inline bool contains(const self_type &box) const
+        bool contains(const self_type &box) const
         { return contains(_min) && contains(_max); }
 
         bool intersects(const self_type &box) const { return intersect(box).valid(); }
 
-        inline value_type distanceSquared(const vector_type &v) const
+        value_type distanceSquared(const vector_type &v) const
         {
             value_type dx = (v.x() < _min.x()) ? _min.x() - v.x() : (v.x() > _max.x() ? v.x() - _max.x() : 0);
             value_type dy = (v.y() < _min.y()) ? _min.y() - v.y() : (v.y() > _max.y() ? v.y() - _max.y() : 0);
@@ -176,7 +176,7 @@ namespace g3
             return dx * dx + dy * dy + dz * dz;
         } 
 
-        inline value_type distance(const vector_type &v) const
+        value_type distance(const vector_type &v) const
         { return std::sqrt(distanceSquared(v)); }
 
         value_type signedDistance(const vector_type &v) const

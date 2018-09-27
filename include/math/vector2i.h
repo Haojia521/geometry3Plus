@@ -1,12 +1,9 @@
 #ifndef G3_MATH_VECTOR_2_I
 #define G3_MATH_VECTOR_2_I
 
-#include <g3Export.h>
-#include <math/vectorTraits.h>
-
 namespace g3
 {
-    class G3Export Vector2i
+    class Vector2i
     {
     public:
         typedef int      value_type;
@@ -26,82 +23,81 @@ namespace g3
         Vector2i(const self_type &copy) { _x = copy._x; _y = copy._y; }
 
         // functions
-        inline value_type& x() { return _x; }
-        inline value_type& y() { return _y; }
-        inline value_type  x() const { return _x; }
-        inline value_type  y() const { return _y; }
+        value_type& x() { return _x; }
+        value_type& y() { return _y; }
+        value_type  x() const { return _x; }
+        value_type  y() const { return _y; }
 
-        inline value_type lengthSquared() const { return _x * _x + _y * _y; }
+        value_type lengthSquared() const { return _x * _x + _y * _y; }
 
-        inline value_type distanceSquared(const self_type &v) const
+        value_type distanceSquared(const self_type &v) const
         {
             value_type dx = _x - v._x, dy = _y - v._y;
             return dx * dx + dy * dy;
         }
 
-        inline void set(const self_type &v) { _x = v._x; _y = v._y; }
-        inline void set(value_type x, value_type y) { _x = x; _y = y; }
+        void set(const self_type &v) { _x = v._x; _y = v._y; }
+        void set(value_type x, value_type y) { _x = x; _y = y; }
 
-        inline void add(const self_type &v) { _x += v._x; _y += v._y; }
-        inline void subtract(const self_type &v) { _x -= v._x; _y -= v._y; }
+        void add(const self_type &v) { _x += v._x; _y += v._y; }
+        void subtract(const self_type &v) { _x -= v._x; _y -= v._y; }
 
-        inline bool equals(const self_type &v) const
+        bool equals(const self_type &v) const
         { return (*this) == v; }
 
         // operator functions
-        inline value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
-        inline value_type  operator [] (int i) const { if (i == 0) return _x; else return _y; }
+        value_type& operator [] (int i) { if (i == 0) return _x; else return _y; }
+        value_type  operator [] (int i) const { if (i == 0) return _x; else return _y; }
 
-        inline self_type operator - () const { return self_type(-_x, -_y); }
+        self_type operator - () const { return self_type(-_x, -_y); }
 
-        inline self_type operator - (const self_type &v) const
+        self_type operator - (const self_type &v) const
         { return self_type(_x - v._x, _y - v._y); }
-        inline self_type operator - (value_type d) const
+        self_type operator - (value_type d) const
         { return self_type(_x - d, _y - d); }
 
-        inline self_type operator + (const self_type &v) const
+        self_type operator + (const self_type &v) const
         { return self_type(_x + v._x, _y + v._y); }
-        inline self_type operator + (value_type d) const
+        self_type operator + (value_type d) const
         { return self_type(_x + d, _y + d); }
         friend self_type operator + (value_type d, const self_type &v);
 
-        inline self_type operator * (const self_type &v) const
+        self_type operator * (const self_type &v) const
         { return self_type(_x * v._x, _y * v._y); }
 
-        inline self_type operator * (value_type d) const
+        self_type operator * (value_type d) const
         { return self_type(_x * d, _y * d); }
         friend self_type operator * (value_type d, const self_type &v);
 
-        inline self_type operator / (const self_type &v) const
+        self_type operator / (const self_type &v) const
         { return self_type(_x / v._x, _y / v._y); }
 
-        inline self_type operator / (value_type d) const
+        self_type operator / (value_type d) const
         { return self_type(_x / d, _y / d); }
         friend self_type operator / (value_type d, const self_type &v);
 
-        inline bool operator == (const self_type &v) const
+        bool operator == (const self_type &v) const
         { return _x == v._x && _y == v._y; }
-        inline bool operator != (const self_type &v) const
+        bool operator != (const self_type &v) const
         { return !((*this) == v); }
 
     private:
         value_type _x, _y;
     };
 
-    inline Vector2i operator + (Vector2i::value_type d, const Vector2i &v)
+    const Vector2i Vector2i::zero = Vector2i();
+    const Vector2i Vector2i::one = Vector2i(1, 1);
+    const Vector2i Vector2i::axisX = Vector2i(1, 0);
+    const Vector2i Vector2i::axisY = Vector2i(0, 1);
+
+    Vector2i operator + (Vector2i::value_type d, const Vector2i &v)
     { return v + d; }
 
-    inline Vector2i operator * (Vector2i::value_type d, const Vector2i &v)
+    Vector2i operator * (Vector2i::value_type d, const Vector2i &v)
     { return v * d; }
 
-    inline Vector2i operator / (Vector2i::value_type d, const Vector2i &v)
+    Vector2i operator / (Vector2i::value_type d, const Vector2i &v)
     { return Vector2i(d / v.x(), d / v.y()); }
-
-    template<>
-    struct Vector2Traits<int>
-    {
-        typedef Vector2i vector_type;
-    };
 }
 
 #endif

@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <vector>
 
-#include <math/vector2d.h>
+#include <math/vectorTraits.h>
 
 namespace g3
 {
@@ -52,60 +52,60 @@ namespace g3
 
         // copy constructor
         template<typename U>
-        inline operator AxisAlignedBox2<U>() const
+        operator AxisAlignedBox2<U>() const
         {
             return AxisAlignedBox2<U>(static_cast<typename AxisAlignedBox2<U>::vector_type>(_min),
                                       static_cast<typename AxisAlignedBox2<U>::vector_type>(_max));
         }
         
         // functions
-        inline vector_type minCoordinate() const { return _min; }
-        inline vector_type maxCoordinate() const { return _max; }
+        vector_type minCoordinate() const { return _min; }
+        vector_type maxCoordinate() const { return _max; }
 
-        inline bool valid() const { return (_max.x() >= _min.x() && _max.y() >= _min.y()); }
+        bool valid() const { return (_max.x() >= _min.x() && _max.y() >= _min.y()); }
 
-        inline value_type width() const { if (valid()) return _max.x() - _min.x(); else return 0; }
-        inline value_type height() const { if (valid()) return _max.y() - _min.y(); else return 0; }
+        value_type width() const { if (valid()) return _max.x() - _min.x(); else return 0; }
+        value_type height() const { if (valid()) return _max.y() - _min.y(); else return 0; }
 
-        inline value_type area() const { return width() * height(); }
+        value_type area() const { return width() * height(); }
 
-        inline value_type diagonalLength() const
+        value_type diagonalLength() const
         { return std::sqrt(width() * width() + height() * height()); }
 
-        inline value_type maxDim() const { return std::max(width(), height()); }
-        inline value_type minDim() const { return std::min(width(), height()); }
+        value_type maxDim() const { return std::max(width(), height()); }
+        value_type minDim() const { return std::min(width(), height()); }
 
         // returns absolute value of largest min/max x/y coordinate (ie max axis distance to origin)
-        inline value_type maxUnsignedCoordinate() const
+        value_type maxUnsignedCoordinate() const
         {
             if (!valid()) return 0;
             return std::max(std::max(std::abs(_min.x()), std::abs(_max.x())), 
                             std::max(std::abs(_min.y()), std::abs(_max.y())));
         }
 
-        inline vector_type diagonal() const { if (valid()) return (_max - _min); else return vector_type(); }
-        inline vector_type center() const { if (valid()) return (_max + _min) * 0.5f; else return vector_type(); }
+        vector_type diagonal() const { if (valid()) return (_max - _min); else return vector_type(); }
+        vector_type center() const { if (valid()) return (_max + _min) * 0.5f; else return vector_type(); }
 
-        inline vector_type sampleT(value_type tx, value_type sy) const
+        vector_type sampleT(value_type tx, value_type sy) const
         {
             return vector_type((1 - tx) * _min.x() + tx * _max.x(), 
                                (1 - sy) * _min.y() + sy * _max.y());
         }
 
         //! value is subtracted from min and added to max
-        inline void expand(value_type radius)
+        void expand(value_type radius)
         {
             _min.x() -= radius; _min.y() -= radius;
             _max.x() += radius; _max.y() += radius;
         }
 
         //! value is added to min and subtracted from max
-        inline void contract(value_type radius) {
+        void contract(value_type radius) {
             _min.x() += radius; _min.y() += radius;
             _max.x() -= radius; _max.y() -= radius;
         }
 
-        inline void add(value_type left, value_type right, value_type bottom, value_type top)
+        void add(value_type left, value_type right, value_type bottom, value_type top)
         {
             _min.x() += left; _min.y() += bottom;
             _max.x() += right; _max.y() += top;
@@ -195,13 +195,13 @@ namespace g3
             else return self_type::empty;
         }
 
-        inline bool contains(const vector_type &v) const
+        bool contains(const vector_type &v) const
         { return (_min.x() <= v.x()) && (_min.y() <= v.y()) && (_max.x() >= v.x()) && (_max.y() >= v.y()); }
 
-        inline bool contains(const self_type &box) const
+        bool contains(const self_type &box) const
         { return contains(box._min) && contains(box._max); }
 
-        inline bool intersects(const self_type &box)
+        bool intersects(const self_type &box)
         { return intersect(box).valid(); }
 
         value_type distance(const vector_type &v) const
