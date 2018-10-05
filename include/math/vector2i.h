@@ -1,4 +1,4 @@
-#ifndef G3_MATH_VECTOR_2_I
+﻿#ifndef G3_MATH_VECTOR_2_I
 #define G3_MATH_VECTOR_2_I
 
 namespace g3

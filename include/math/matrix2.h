@@ -1,4 +1,4 @@
-#ifndef G3_MATH_MATRIX_2
+﻿#ifndef G3_MATH_MATRIX_2
 #define G3_MATH_MATRIX_2
 
 #include <cmath>

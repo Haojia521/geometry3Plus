@@ -1,4 +1,4 @@
-#ifndef G3_MATH_AXIS_ALIGNED_BOX_2
+﻿#ifndef G3_MATH_AXIS_ALIGNED_BOX_2
 #define G3_MATH_AXIS_ALIGNED_BOX_2
 
 #include <cstdlib>
@@ -17,7 +17,7 @@ namespace g3
         typedef typename vector_type::value_type       value_type;
         typedef AxisAlignedBox2<T>                     self_type;
 
-        enum ScaleMode
+        enum class ScaleMode
         {
             ScaleRight,
             ScaleLeft,

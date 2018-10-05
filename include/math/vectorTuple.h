@@ -1,4 +1,4 @@
-#ifndef G3_MATH_VECTOR_TUPLE
+﻿#ifndef G3_MATH_VECTOR_TUPLE
 #define G3_MATH_VECTOR_TUPLE
 
 #include <tuple>

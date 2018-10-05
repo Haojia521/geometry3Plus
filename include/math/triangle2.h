@@ -1,4 +1,4 @@
-#ifndef G3_MATH_TRIANGLE_2
+﻿#ifndef G3_MATH_TRIANGLE_2
 #define G3_MATH_TRIANGLE_2
 
 #include <math/vectorTraits.h>

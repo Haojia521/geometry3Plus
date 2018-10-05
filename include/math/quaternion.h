@@ -1,4 +1,4 @@
-#ifndef G3_MATH_AUQTERNION
+﻿#ifndef G3_MATH_AUQTERNION
 #define G3_MATH_AUQTERNION
 
 #include <cmath>

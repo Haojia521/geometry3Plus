@@ -1,4 +1,4 @@
-#ifndef G3_MATH_TRANSFORM_SEQUENCE_2
+ï»¿#ifndef G3_MATH_TRANSFORM_SEQUENCE_2
 #define G3_MATH_TRANSFORM_SEQUENCE_2
 
 #include <memory>
@@ -14,9 +14,9 @@ namespace g3
     class ITransform2
     {
     public:
-        typedef ITransform2<T>                         self_type;
-        typedef typename Vector2Traits<T>::vector_type vector_type;
-        typedef typename vector_type::value_type       value_type;
+        using self_type   = ITransform2<T>;
+        using vector_type = typename Vector2Traits<T>::vector_type;
+        using value_type  = typename vector_type::value_type;
 
         // Apply transforms to point
         virtual vector_type transformP(const vector_type &p) const = 0;
@@ -30,10 +30,10 @@ namespace g3
     class TransformSequence2 : public ITransform2<T>
     {
     public:
-        typedef ITransform2<T>                  base_type;
-        typedef TransformSequence2<T>           self_type;
-        typedef typename base_type::vector_type vector_type;
-        typedef typename base_type::value_type  value_type;
+        using base_type   = ITransform2<T>;
+        using self_type   = TransformSequence2<T>;
+        using vector_type = typename base_type::vector_type;
+        using value_type  = typename base_type::value_type;
 
         enum class XFormType
         {
@@ -48,8 +48,8 @@ namespace g3
 
         struct XForm
         {
-            typedef typename VectorTupleTrait<vector_type, 2>::tuple_type tuple_type;
-            typedef Matrix2<value_type>                                   matrix_type;
+            using tuple_type  = typename VectorTupleTrait<vector_type, 2>::tuple_type;
+            using matrix_type = Matrix2<value_type>;
 
             // public member values
             XFormType type;
@@ -57,26 +57,6 @@ namespace g3
             std::shared_ptr<base_type> xform;
 
             // type conversion
-            template<typename U>
-            operator typename TransformSequence2<U>::XForm() const
-            {
-                typedef typename TransformSequence2<U>::XForm other_XForm_type;
-                other_XForm_type other_xform;
-                other_xform.type = type;
-                other_xform.data = typename other_XForm_type::tuple_type(std::get<0>(data), std::get<1>(data));
-                if (xform)
-                {
-                    other_xform.xform = std::make_shared<typename TransformSequence2<U>>();
-                    (*other_xform.xform) = static_cast<TransformSequence2<U>>(*xform);
-                }
-                return other_xform;
-            }
-
-            template<typename U>
-            XForm& operator = (const typename TransformSequence2<U>::XForm &rhs)
-            {
-
-            }
 
             // functions
             // may need to update these to handle other types...
@@ -106,13 +86,6 @@ namespace g3
         TransformSequence2() {}
 
         // type conversion
-        template<typename U>
-        operator TransformSequence2<U>() const
-        {
-            TransformSequence2<U> other_transformSequence2;
-            other_transformSequence2.operations.assign(operations.begin(), operations.end());
-            return other_transformSequence2;
-        }
 
         // functions
         self_type& translation(const vector_type &v)
@@ -231,7 +204,7 @@ namespace g3
                     break;
 
                 default:
-                    // TO UPDATE: ÊÇ·ñĞèÒª±¨´í£¨Å×³öÒì³££©
+                    // TO UPDATE: æ˜¯å¦éœ€è¦æŠ¥é”™ï¼ˆæŠ›å‡ºå¼‚å¸¸ï¼‰
                     break;
                 }
             }
@@ -256,7 +229,7 @@ namespace g3
 
                 case XFormType::SCALE:
                 case XFormType::SCALE_AROUND_POINT:
-                    // TO UPDATE: µ±Ç°Ã»ÓĞÅĞ¶Ï op.scaleUniform() ÊÇ·ñÎªÕæ
+                    // TO UPDATE: å½“å‰æ²¡æœ‰åˆ¤æ–­ op.scaleUniform() æ˜¯å¦ä¸ºçœŸ
                     r = r * op.scale();
 
                 case XFormType::NESTED_ITRANSFORM2:
@@ -264,7 +237,7 @@ namespace g3
                     break;
 
                 default:
-                    // TO UPDATE: ÊÇ·ñĞèÒª±¨´í£¨Å×³öÒì³££©
+                    // TO UPDATE: æ˜¯å¦éœ€è¦æŠ¥é”™ï¼ˆæŠ›å‡ºå¼‚å¸¸ï¼‰
                     break;
                 }
             }
@@ -286,7 +259,7 @@ namespace g3
 
                 case XFormType::SCALE:
                 case XFormType::SCALE_AROUND_POINT:
-                    // TO UPDATE: µ±Ç°Ã»ÓĞÅĞ¶Ï op.scaleUniform() ÊÇ·ñÎªÕæ
+                    // TO UPDATE: å½“å‰æ²¡æœ‰åˆ¤æ–­ op.scaleUniform() æ˜¯å¦ä¸ºçœŸ
                     r = r * op.scale().x();
                     break;
 
@@ -295,7 +268,7 @@ namespace g3
                     break;
 
                 default:
-                    // TO UPDATE: ÊÇ·ñĞèÒª±¨´í£¨Å×³öÒì³££©
+                    // TO UPDATE: æ˜¯å¦éœ€è¦æŠ¥é”™ï¼ˆæŠ›å‡ºå¼‚å¸¸ï¼‰
                     break;
                 }
             }
@@ -304,14 +277,18 @@ namespace g3
         }
 
     private:
-        template<typename U>
-        friend class TransformSequence2;
 
         std::vector<XForm> operations;
     };
 
-    typedef TransformSequence2<double> TransformSequence2d;
-    typedef TransformSequence2<float>  TransformSequence2f;
+    template<typename T>
+    inline std::shared_ptr<ITransform2<T>> asITransform2(std::shared_ptr<TransformSequence2<T>> ts)
+    {
+        return std::dynamic_pointer_cast<ITransform2<T>>(ts);
+    }
+
+    using TransformSequence2d = TransformSequence2<double>;
+    using TransformSequence2f = TransformSequence2<float>;
 }
 
 #endif

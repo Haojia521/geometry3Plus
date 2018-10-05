@@ -1,4 +1,4 @@
-#ifndef G3_MATH_VECTOR_3_D
+﻿#ifndef G3_MATH_VECTOR_3_D
 #define G3_MATH_VECTOR_3_D
 
 #include <math/vector2d.h>

@@ -1,4 +1,4 @@
-#ifndef G3_MATH_AXIS_ALIGNED_BOX_3
+﻿#ifndef G3_MATH_AXIS_ALIGNED_BOX_3
 #define G3_MATH_AXIS_ALIGNED_BOX_3
 
 #include <cstdlib>

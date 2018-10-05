@@ -1,4 +1,4 @@
-#ifndef G3_MATH_MATH_UTIL
+﻿#ifndef G3_MATH_MATH_UTIL
 #define G3_MATH_MATH_UTIL
 
 namespace g3

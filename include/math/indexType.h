@@ -1,4 +1,4 @@
-#ifndef G3_MATH_INDEX_TYPE
+﻿#ifndef G3_MATH_INDEX_TYPE
 #define G3_MATH_INDEX_TYPE
 
 #include <type_traits>

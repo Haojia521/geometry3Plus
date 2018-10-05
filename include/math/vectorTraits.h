@@ -1,4 +1,4 @@
-#ifndef G3_MATH_VECTOR_TRAITS
+﻿#ifndef G3_MATH_VECTOR_TRAITS
 #define G3_MATH_VECTOR_TRAITS
 
 #include <math/vector2d.h>

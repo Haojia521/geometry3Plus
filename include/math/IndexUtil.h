@@ -1,4 +1,4 @@
-#ifndef G3_MATH_INDEX_UTIL
+﻿#ifndef G3_MATH_INDEX_UTIL
 #define G3_MATH_INDEX_UTIL
 
 #include <math/indexType.h>
