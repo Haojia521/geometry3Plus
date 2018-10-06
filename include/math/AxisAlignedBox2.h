@@ -13,9 +13,9 @@ namespace g3
     class AxisAlignedBox2
     {
     public:
-        typedef typename Vector2Traits<T>::vector_type vector_type;
-        typedef typename vector_type::value_type       value_type;
-        typedef AxisAlignedBox2<T>                     self_type;
+        using vector_type = typename Vector2Traits<T>::vector_type;
+        using value_type  = typename vector_type::value_type;
+        using self_type   = AxisAlignedBox2<T>;
 
         enum class ScaleMode
         {
@@ -245,9 +245,9 @@ namespace g3
         AxisAlignedBox2<T>(AxisAlignedBox2<T>::vector_type::minValue, 
                            AxisAlignedBox2<T>::vector_type::maxValue);
 
-    typedef AxisAlignedBox2<double> AxisAlignedBox2d;
-    typedef AxisAlignedBox2<float>  AxisAlignedBox2f;
-    typedef AxisAlignedBox2<int>    AxisAlignedBox2i;
+    using AxisAlignedBox2d = AxisAlignedBox2<double>;
+    using AxisAlignedBox2f = AxisAlignedBox2<float>;
+    using AxisAlignedBox2i = AxisAlignedBox2<int>;
 }
 
 #endif

@@ -12,13 +12,13 @@ namespace g3
     template<typename T>
     class Quaternion
     {
-        typedef typename Vector4Traits<T>::vector_type inner_data_type;
+        using inner_data_type = typename Vector4Traits<T>::vector_type;
         Quaternion(const inner_data_type &data) : _vec4(data) {}
     public:
-        typedef typename Vector3Traits<T>::vector_type vector_type;
-        typedef typename vector_type::value_type       value_type;
-        typedef Matrix3<T>                             matrix_type;
-        typedef Quaternion<T>                          self_type;
+        using vector_type = typename Vector3Traits<T>::vector_type;
+        using value_type  = typename vector_type::value_type;
+        using matrix_type = Matrix3<T>;
+        using self_type   = Quaternion<T>;
 
         // static values
         static const self_type zero;
@@ -321,8 +321,8 @@ namespace g3
                               const Quaternion<T> &q)
     { return q * d; }
 
-    typedef Quaternion<double> Quaterniond;
-    typedef Quaternion<float>  Quaternionf;
+    using Quaterniond = Quaternion<double>;
+    using Quaternionf = Quaternion<float>;
 }
 
 #endif

@@ -11,8 +11,8 @@ namespace g3
     class Vector2f
     {
     public:
-        typedef float    value_type;
-        typedef Vector2f self_type;
+        using value_type = float;
+        using self_type  = Vector2f;
 
         // static values
         static const self_type zero;

@@ -8,8 +8,8 @@ namespace g3
     class Index
     {
     public:
-        typedef unsigned int value_type;
-        typedef Index        self_type;
+        using value_type = unsigned int;
+        using self_type = Index;
 
         // static values
         static const value_type invalidValue;
@@ -39,8 +39,8 @@ namespace g3
     class IndexTemplate
     {
     public:
-        typedef Index            index_type;
-        typedef IndexTemplate<N> self_type;
+        using index_type = Index;
+        using self_type  = IndexTemplate<N>;
 
         // static values
         static const self_type zero;
@@ -99,7 +99,7 @@ namespace g3
     class Index2 : public IndexTemplate<2>
     {
     public:
-        typedef IndexTemplate<2> base_type;
+        using base_type = IndexTemplate<2>;
 
         Index2() : base_type() {}
         Index2(index_type i) : base_type(i) {}
@@ -110,7 +110,7 @@ namespace g3
     class Index3 : public IndexTemplate<3>
     {
     public:
-        typedef IndexTemplate<3> base_type;
+        using base_type = IndexTemplate<3>;
 
         Index3() : base_type() {}
         Index3(index_type i) : base_type(i) {}
@@ -127,7 +127,7 @@ namespace g3
     class Index4 : public IndexTemplate<4>
     {
     public:
-        typedef IndexTemplate<4> base_type;
+        using base_type = IndexTemplate<4>;
 
         Index4() : base_type() {}
         Index4(index_type i) : base_type(i) {}

@@ -10,8 +10,8 @@ namespace g3
     class Vector2d
     {
     public:
-        typedef double   value_type;
-        typedef Vector2d self_type;
+        using value_type = double;
+        using self_type  = Vector2d;
 
         // static values
         static const self_type zero;

@@ -13,19 +13,19 @@ namespace g3
     template<>
     struct Vector2Traits<double>
     {
-        typedef Vector2d vector_type;
+        using vector_type = Vector2d;
     };
 
     template<>
     struct Vector2Traits<float>
     {
-        typedef Vector2f vector_type;
+        using vector_type = Vector2f;
     };
 
     template<>
     struct Vector2Traits<int>
     {
-        typedef Vector2i vector_type;
+        using vector_type = Vector2i;
     };
 
     template<typename T>
@@ -34,19 +34,19 @@ namespace g3
     template<>
     struct Vector3Traits<double>
     {
-        typedef Vector3d vector_type;
+        using vector_type = Vector3d;
     };
 
     template<>
     struct Vector3Traits<float>
     {
-        typedef Vector3f vector_type;
+        using vector_type = Vector3f;
     };
 
     template<>
     struct Vector3Traits<int>
     {
-        typedef Vector3i vector_type;
+        using vector_type = Vector3i;
     };
 
     template<typename T>
@@ -55,13 +55,13 @@ namespace g3
     template<>
     struct Vector4Traits<double>
     {
-        typedef Vector4d vector_type;
+        using vector_type = Vector4d;
     };
 
     template<>
     struct Vector4Traits<float>
     {
-        typedef Vector4f vector_type;
+        using vector_type = Vector4f;
     };
 }
 

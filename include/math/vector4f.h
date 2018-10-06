@@ -10,8 +10,8 @@ namespace g3
     class Vector4f
     {
     public:
-        typedef float    value_type;
-        typedef Vector4f self_type;
+        using value_type = float;
+        using self_type  = Vector4f;
 
         // static values
         static const self_type zero;

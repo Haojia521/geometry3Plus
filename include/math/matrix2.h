@@ -12,9 +12,9 @@ namespace g3
     class Matrix2
     {
     public:
-        typedef typename Vector2Traits<T>::vector_type vector_type;
-        typedef typename vector_type::value_type       value_type;
-        typedef Matrix2<T>                             self_type;
+        using vector_type = typename Vector2Traits<T>::vector_type;
+        using value_type  = typename vector_type::value_type;
+        using self_type   = Matrix2<T>;
 
         // static values
         static const self_type identity;
@@ -229,8 +229,8 @@ namespace g3
     typename Matrix2<T>::vector_type operator * (const typename Matrix2<T>::vector_type &v, const Matrix2<T> &m)
     { return Matrix2<T>::vector_type(v.dot(m.column(0)), v.dot(m.column(1))); }
 
-    typedef Matrix2<double> Matrix2d;
-    typedef Matrix2<float>  Matrix2f;
+    using Matrix2d = Matrix2<double>;
+    using Matrix2f = Matrix2<float>;
 }
 
 #endif

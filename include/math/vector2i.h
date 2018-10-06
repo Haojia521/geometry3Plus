@@ -6,8 +6,8 @@ namespace g3
     class Vector2i
     {
     public:
-        typedef int      value_type;
-        typedef Vector2i self_type;
+        using value_type = int;
+        using self_type  = Vector2i;
 
         // static values
         static const self_type zero;

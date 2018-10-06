@@ -8,8 +8,8 @@ namespace g3
     class Vector4d
     {
     public:
-        typedef double   value_type;
-        typedef Vector4d self_type;
+        using value_type = double;
+        using self_type  = Vector4d;
 
         // static values
         static const self_type zero;

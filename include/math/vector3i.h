@@ -8,9 +8,9 @@ namespace g3
     class Vector3i
     {
     public:
-        typedef int      value_type;
-        typedef Vector3i self_type;
-        typedef Vector2i assoc_2d_type;
+        using value_type  = int;
+        using self_type   = Vector3i;
+        using asso_type_2 = Vector2i;
 
         // static values
         static const self_type zero;
@@ -36,14 +36,14 @@ namespace g3
         value_type  y() const { return _y; }
         value_type  z() const { return _z; }
 
-        assoc_2d_type xy() const { return assoc_2d_type(_x, _y); }
-        void xy(const assoc_2d_type &v) { _x = v.x(); _y = v.y(); }
+        asso_type_2 xy() const { return asso_type_2(_x, _y); }
+        void xy(const asso_type_2 &v) { _x = v.x(); _y = v.y(); }
 
-        assoc_2d_type xz() const { return assoc_2d_type(_x, _z); }
-        void xz(const assoc_2d_type &v) { _x = v.x(); _z = v.y(); }
+        asso_type_2 xz() const { return asso_type_2(_x, _z); }
+        void xz(const asso_type_2 &v) { _x = v.x(); _z = v.y(); }
 
-        assoc_2d_type yz() const { return assoc_2d_type(_y, _z); }
-        void yz(const assoc_2d_type &v) { _y = v.x(), _z = v.y(); }
+        asso_type_2 yz() const { return asso_type_2(_y, _z); }
+        void yz(const asso_type_2 &v) { _y = v.x(), _z = v.y(); }
 
         value_type lengthSquared() const { return _x * _x + _y * _y + _z * _z; }
 

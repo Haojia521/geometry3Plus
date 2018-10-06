@@ -9,8 +9,8 @@ namespace g3
     class Triangle3
     {
     public:
-        typedef typename Vector3Traits<T>::vector_type vector_type;
-        typedef typename vector_type::value_type       value_type;
+        using vector_type = typename Vector3Traits<T>::vector_type;
+        using value_type  = typename vector_type::value_type;
 
         // constructors
         Triangle3(const vector_type &v0, const vector_type &v1, const vector_type &v2)
@@ -52,8 +52,8 @@ namespace g3
         vector_type _v0, _v1, _v2;
     };
 
-    typedef Triangle3<double> Triangle3d;
-    typedef Triangle3<float>  Triangle3f;
+    using Triangle3d = Triangle3<double>;
+    using Triangle3f = Triangle3<float>;
 }
 
 #endif

@@ -7,19 +7,19 @@
 
 namespace g3
 {
-    typedef std::tuple<Vector3d, Vector3d>                     Vector3dTuple2;
-    typedef std::tuple<Vector3d, Vector3d, Vector3d>           Vector3dTuple3;
+    using Vector3dTuple2 = std::tuple<Vector3d, Vector3d>;
+    using Vector3dTuple3 = std::tuple<Vector3d, Vector3d, Vector3d>;
 
-    typedef std::tuple<Vector3f, Vector3f>                     Vector3fTuple2;
-    typedef std::tuple<Vector3f, Vector3f, Vector3f>           Vector3fTuple3;
+    using Vector3fTuple2 = std::tuple<Vector3f, Vector3f>;
+    using Vector3fTuple3 = std::tuple<Vector3f, Vector3f, Vector3f>;
 
-    typedef std::tuple<Vector2d, Vector2d>                     Vector2dTuple2;
-    typedef std::tuple<Vector2d, Vector2d, Vector2d>           Vector2dTuple3;
-    typedef std::tuple<Vector2d, Vector2d, Vector2d, Vector2d> Vector2dTuple4;
+    using Vector2dTuple2 = std::tuple<Vector2d, Vector2d>;
+    using Vector2dTuple3 = std::tuple<Vector2d, Vector2d, Vector2d>;
+    using Vector2dTuple4 = std::tuple<Vector2d, Vector2d, Vector2d, Vector2d>;
 
-    typedef std::tuple<Vector2f, Vector2f>                     Vector2fTuple2;
-    typedef std::tuple<Vector2f, Vector2f, Vector2f>           Vector2fTuple3;
-    typedef std::tuple<Vector2f, Vector2f, Vector2f, Vector2f> Vector2fTuple4;
+    using Vector2fTuple2 = std::tuple<Vector2f, Vector2f>;
+    using Vector2fTuple3 = std::tuple<Vector2f, Vector2f, Vector2f>;
+    using Vector2fTuple4 = std::tuple<Vector2f, Vector2f, Vector2f, Vector2f>;
 
     template<typename T, int N, class = std::enable_if<(N > 0)>>
     struct VectorTupleTrait{};
@@ -27,61 +27,61 @@ namespace g3
     template<>
     struct VectorTupleTrait<Vector3d, 2>
     {
-        typedef Vector3dTuple2 tuple_type;
+        using tuple_type = Vector3dTuple2;
     };
 
     template<>
     struct VectorTupleTrait<Vector3d, 3>
     {
-        typedef Vector3dTuple3 tuple_type;
+        using tuple_type = Vector3dTuple3;
     };
     
     template<>
     struct VectorTupleTrait<Vector3f, 2>
     {
-        typedef Vector3fTuple2 tuple_type;
+        using tuple_type = Vector3fTuple2;
     };
 
     template<>
     struct VectorTupleTrait<Vector3f, 3>
     {
-        typedef Vector3fTuple3 tuple_type;
+        using tuple_type = Vector3fTuple3;
     };
 
     template<>
     struct VectorTupleTrait<Vector2d, 2>
     {
-        typedef Vector2dTuple2 tuple_type;
+        using tuple_type = Vector2dTuple2;
     };
 
     template<>
     struct VectorTupleTrait<Vector2d, 3>
     {
-        typedef Vector2dTuple3 tuple_type;
+        using tuple_type = Vector2dTuple3;
     };
 
     template<>
     struct VectorTupleTrait<Vector2d, 4>
     {
-        typedef Vector2dTuple4 tuple_type;
+        using tuple_type = Vector2dTuple4;
     };
 
     template<>
     struct VectorTupleTrait<Vector2f, 2>
     {
-        typedef Vector2fTuple2 tuple_type;
+        using tuple_type = Vector2fTuple2;
     };
 
     template<>
     struct VectorTupleTrait<Vector2f, 3>
     {
-        typedef Vector2fTuple3 tuple_type;
+        using tuple_type = Vector2fTuple3;
     };
 
     template<>
     struct VectorTupleTrait<Vector2f, 4>
     {
-        typedef Vector2fTuple4 tuple_type;
+        using tuple_type = Vector2fTuple4;
     };
 }
 
