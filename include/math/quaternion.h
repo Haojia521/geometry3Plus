@@ -257,6 +257,18 @@ namespace g3
                    std::abs(w() - q.w()) <= eps;
         }
 
+        vector_type inverseMultiply(const vector_type &v) const
+        {
+            auto inv = inverse();
+            if (inv != zero)
+            {
+                auto mat = inv.toRotateMatrix();
+                return mat * v;
+            }
+            else
+                return vector_type::zero;
+        }
+
         // operator functions
         value_type  operator [] (int i) const
         { return _vec4[i]; }

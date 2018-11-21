@@ -18,6 +18,65 @@ namespace g3
 
         // static values
 
+        // static functions
+
+        // Interpolate between two frames - Lerp for origin, Slerp for rotation
+        static self_type interpolate(const self_type &f1, const self_type &f2, value_type t)
+        {
+            return self_type(vector_type::lerp(f1.origin(), f2.origin()),
+                quat_type::slerp(f1.rotation(), f2.rotation(), t));
+        }
+
+        // finds minimal rotation that aligns source frame with axes of target frame.
+        // considers all signs
+        //   1) find smallest angle(axis_source, axis_target), considering all sign permutations
+        //   2) rotate source to align axis_source with sign*axis_target
+        //   3) now rotate around alined_axis_source to align second-best pair of axes
+        static self_type sovleMinRotation(const self_type &source, const self_type &target)
+        {
+            int best_i = -1, best_j = -1;
+            value_type maxAbsDot = 0, maxSign = 0;
+            for (int i = 0; i < 3; ++i)
+                for (int j = 0; j < 3; ++j)
+                {
+                    auto d = source.getAxis(i).dot(target.getAxis(j));
+                    auto a = std::abs(d);
+                    if (a > maxAbsDot)
+                    {
+                        maxAbsDot = a;
+                        maxSign = std::signbit(d) ? -1 : 1;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+
+            self_type R1 = source.rotated(quat_type::fromTo(source.getAxis(best_i), target.getAxis(best_j) * maxSign));
+            vector_type vAround = R1.getAxis(best_i);
+
+            int second_i = -1, second_j = -1;
+            value_type secondDot = 0, secondSign = 0;
+            for (int i = 0; i < 3; ++i)
+            {
+                if (i == best_i) continue;
+                for (int j = 0; j < 3; ++j)
+                {
+                    if (j == best_j) continue;
+                    auto d = R1.getAxis(i).dot(target.getAxis(j));
+                    auto a = std::abs(d);
+                    if (a > secondDot)
+                    {
+                        secondDot = a;
+                        secondSign = std::signbit(d) ? -1 : 1;
+                        second_i = i;
+                        second_j = j;
+                    }
+                }
+            }
+
+            R1.constrainedAlignAxis(second_i, target.getAxis(second_j) * secondSign, vAround);
+            return R1;
+        }
+
         // constructors
         Frame3(const vector_type &o) : _rotation(quat_type::indentity), _origin(o)
         {}
@@ -64,9 +123,9 @@ namespace g3
         quat_type& rotation()
         { return _rotation; }
 
-        const vector_type& origion() const
+        const vector_type& origin() const
         { return _origin; }
-        vector_type& origion()
+        vector_type& origin()
         { return _origin; }
 
         vector_type x() const
@@ -186,6 +245,65 @@ namespace g3
 
         value_type distanceToPlane(const vector_type &p, int nNormal) const
         { return std::abs(distanceToPlaneSigned(p, nNormal)); }
+
+        // Map point *into* local coordinates of Frame
+        vector_type toFrameP(const vector_type &p) const
+        {
+            auto tem = p - _origin;
+            return _rotation.inverseMultiply(tem);
+        }
+
+        // Map point *from* local frame coordinates into "world" coordinates
+        vector_type fromFrameP(const vector_type &p) const
+        { return _rotation * p + _origin; }
+
+        // Map vector *into* local coordinates of Frame
+        vector_type toFrameV(const vector_type &v) const
+        { eturn _rotation.inverseMultiply(v); }
+
+        // Map vector *from* local frame coordinates into "world" coordinates
+        vector_type fromFrameV(const vector_type &v) const
+        { return _rotation * v; }
+
+        // Map quaternion *into* local coordinates of Frame
+        quat_type toFrame(const quat_type &q) const
+        { return quat_type::inverse(_rotation) * q; }
+
+        // Map quaternion *from* local frame coordinates into "world" coordinates
+        quat_type fromFrame(const quat_type &q) const
+        { return _rotation * q; }
+
+        // TODO: Ray3
+        // 
+
+        // TODO: Box3
+        //
+
+        // Map frame *into* local coordinates of Frame
+        self_type toFrame(const self_type &f) const
+        { return self_type(toFrameP(f.origin()), toFrame(f.rotation())); }
+
+        // Map frame *from* local frame coordinates into "world" coordinates
+        self_type fromFrame(const self_type &f) const
+        { return self_type(fromFrameP(f.origin()), fromFrame(f.rotation())); }
+
+        // Compute intersection of ray with plane passing through frame origin, normal
+        // to the specified axis. 
+        // If the ray is parallel to the plane, no intersection can be found, and
+        // we return Vector3::invalid
+        vector_type rayPlaneIntersection(const vector_type &rayOrigin, const vector_type &rayDirection, int nAxisAsNormal) const
+        {
+            auto N = getAxis(nAxisAsNormal);
+            auto d = -vector_type::dot(_origin, N);
+            auto div = vector_type::dot(rayDirection, N);
+            if (std::abs(div) <= mathUtil::getZeroTolerance<value_type>())
+                return vector_type::invalid;
+            auto t = -(vector_type::dot(rayOrigin, N) + d) / div;
+            return rayOrigin + rayDirection * t;
+        }
+
+        bool epsilonEqual(const self_type &f, value_type eps)
+        { return _origin.epsilonEqual(f.origin(), eps) && _rotation.epsilonEqual(f.rotation(), eps); }
 
 
 
