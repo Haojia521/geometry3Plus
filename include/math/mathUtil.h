@@ -20,28 +20,28 @@ namespace g3
         constexpr double sqrtThree  = 1.7320508075688772935274463415059;
 
         template<typename T>
-        inline constexpr T getPI() { return static_cast<T>(PI); }
+        constexpr T getPI() { return static_cast<T>(PI); }
         template<typename T>
-        inline constexpr T getTwoPI() { return static_cast<T>(twoPI); }
+        constexpr T getTwoPI() { return static_cast<T>(twoPI); }
         template<typename T>
-        inline constexpr T getHalfPI() { return static_cast<T>(halfPI); }
+        constexpr T getHalfPI() { return static_cast<T>(halfPI); }
 
         template<typename T>
-        inline constexpr T getDeg2Rad() { return static_cast<T>(deg2rad); }
+        constexpr T getDeg2Rad() { return static_cast<T>(deg2rad); }
         template<typename T>
-        inline constexpr T getRad2Deg() { return static_cast<T>(rad2deg); }
+        constexpr T getRad2Deg() { return static_cast<T>(rad2deg); }
 
         template<typename T>
-        inline constexpr T getZeroTolerance() { return static_cast<T>(zeroTolerance); }
+        constexpr T getZeroTolerance() { return static_cast<T>(zeroTolerance); }
         template<typename T>
-        inline constexpr T getEpsilon() { return static_cast<T>(epsilon); }
+        constexpr T getEpsilon() { return static_cast<T>(epsilon); }
 
         template<typename T>
-        inline constexpr T getSqrtTwo() { return static_cast<T>(sqrtTwo); }
+        constexpr T getSqrtTwo() { return static_cast<T>(sqrtTwo); }
         template<typename T>
-        inline constexpr T getSqrtTwoInv() { return static_cast<T>(sqrtTwoInv); }
+        constexpr T getSqrtTwoInv() { return static_cast<T>(sqrtTwoInv); }
         template<typename T>
-        inline constexpr T getSqrtThree() { return static_cast<T>(sqrtThree); }
+        constexpr T getSqrtThree() { return static_cast<T>(sqrtThree); }
 
         template<typename T>
         inline T clamp(T value, T low, T high)
@@ -70,6 +70,29 @@ namespace g3
             auto fBary2 = (fM00 * fR1 - fM01 * fR0) * fInvDet;
             auto fBary3 = 1 - fBary1 - fBary2;
             return U(fBary1, fBary2, fBary3);
+        }
+
+        template<typename T>
+        int sign(const T &value)
+        {
+            if (value > 0) return 1;
+            else if (value < 0) return -1;
+            else return 0;
+        }
+
+        template<typename Vec3T>
+        auto planeAngleSignedD(const Vec3T &vFrom, const Vec3T &vTo, const Vec3T &planeN)
+        {
+            auto vf = vFrom - Vec3T::dot(vFrom, planeN) * planeN;
+            auto vt = vTo - Vec3T::dot(vTo, planeN) * planeN;
+            vf.normalize();
+            vt.normalize();
+            auto cFT = Vec3T::cross(vf, vt);
+            if (cFT.lengthSquared() < mathUtil::getZeroTolerance<typename Vec3T::value_type>())
+                return Vec3T::dot(vf, vt) < 0 ? 180 : 0;
+            auto s = mathUtil::sign(Vec3T::dot(cFT, planeN));
+            auto angle = s * Vec3T::angleD(vf, vt);
+            return angle;
         }
     }
 }
