@@ -306,7 +306,6 @@ namespace g3
         { return _origin.epsilonEqual(f.origin(), eps) && _rotation.epsilonEqual(f.rotation(), eps); }
 
 
-
     private:
         vector_type _origin;
         quat_type _rotation;
