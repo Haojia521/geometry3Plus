@@ -1,4 +1,4 @@
-#ifndef G3_MATH_LINE_2
+﻿#ifndef G3_MATH_LINE_2
 #define G3_MATH_LINE_2
 
 #include <math/vectorTraits.h>
@@ -32,6 +32,16 @@ namespace g3
         }
 
         // functions
+        vector_type origin() const
+        { return _origin; }
+        vector_type direction() const
+        { return _direction; }
+
+        vector_type& origin()
+        { return _origin; }
+        vector_type& direction()
+        { return _direction; }
+
         vector_type pointAt(value_type d) const
         { return _origin + _direction * d; }
 

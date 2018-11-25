@@ -1,4 +1,4 @@
-#ifndef G3_MATH_RAY_3
+﻿#ifndef G3_MATH_RAY_3
 #define G3_MATH_RAY_3
 
 #include <math/vectorTraits.h>
