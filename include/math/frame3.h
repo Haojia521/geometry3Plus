@@ -2,6 +2,8 @@
 #define G3_MATH_FRAME_3
 
 #include <math/quaternion.h>
+#include <math/Box3.h>
+#include <math/ray3.h>
 
 namespace g3
 {
@@ -14,6 +16,8 @@ namespace g3
         using value_type = typename vector_type::value_type;
         using quat_type = Quaternion<value_type>;
         using matrix_type = Matrix3<value_type>;
+        using box_type = Box3<T>;
+        using ray_type = Ray3<T>;
         using self_type = Frame3<T>;
 
         // static values
@@ -273,11 +277,46 @@ namespace g3
         quat_type fromFrame(const quat_type &q) const
         { return _rotation * q; }
 
-        // TODO: Ray3
-        // 
+        // Map ray *into* local coordinates of Frame
+        ray_type toFrame(const ray_type &ray) const
+        { return ray_type(toFrameP(ray.origin()), toFrameV(ray.direction())); }
 
-        // TODO: Box3
-        //
+        // Map ray *from* local frame coordinates into "world" coordinates
+        ray_type fromFrame(const ray_type &ray) const
+        { return ray_type(fromFrameP(ray.origin()), fromFrameV(ray.direction())); }
+
+        // Map box *into* local coordinates of Frame
+        box_type toFrame(const box_type &box) const
+        {
+            auto rBox = box;
+            rBox.center() = toFrameP(box.center());
+            rBox.axisX() = toFrameV(box.axisX());
+            rBox.axisY() = toFrameV(box.axisY());
+            rBox.axisZ() = toFrameV(box.axisZ());
+            return rBox;
+        }
+
+        // Map box *from* local frame coordinates into "world" coordinates
+        box_type fromFrame(const box_type &box) const
+        {
+            box_type rBox = box;
+            rBox.center() = fromFrameP(box.center());
+            rBox.axisX() = fromFrameV(box.axisX());
+            rBox.axisY() = fromFrameV(box.axisY());
+            rBox.axisZ() = fromFrameV(box.axisZ());
+            return rBox;
+        }
+
+        box_type createBox(const vector_type &extent) const
+        {
+            box_type box;
+            box.center() = origin();
+            box.axisX() = x();
+            box.axisY() = y();
+            box.axisZ() = z();
+            box.extent() = extent;
+            return box;
+        }
 
         // Map frame *into* local coordinates of Frame
         self_type toFrame(const self_type &f) const
