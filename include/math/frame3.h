@@ -310,6 +310,9 @@ namespace g3
         vector_type _origin;
         quat_type _rotation;
     };
+
+    using Frame3d = Frame3<double>;
+    using Frame3f = Frame3<float>;
 }
 
 #endif
